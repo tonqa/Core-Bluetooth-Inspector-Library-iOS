@@ -8,12 +8,16 @@
 
 #import "AKCBKeyValueStoreServer.h"
 
+#import "AKCBKeyValueStoreUtils.h"
 
 @interface AKCBKeyValueStoreServer ()
 
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBUUID *serviceUDID;
-@property (nonatomic, strong) CBUUID *valueCharactericUDID;
+@property (nonatomic, strong) CBUUID *readCharacteristicUDID;
+@property (nonatomic, strong) CBUUID *writeCharacteristicUDID;
+@property (nonatomic, strong) CBUUID *createCharacteristicUDID;
+@property (nonatomic, strong) CBUUID *deleteCharacteristicUDID;
 @property (nonatomic, copy) NSString *serviceName;
 
 @end
@@ -49,13 +53,21 @@
     switch (peripheral.state) {
         case CBPeripheralManagerStatePoweredOn:{
             if (!self.serviceUDID) {
-                self.serviceUDID = [CBUUID UUIDWithString:[AKCBKeyValueStoreServer getUUID]];
-                self.valueCharactericUDID = [CBUUID UUIDWithString:@"VALUE"];
+                self.serviceUDID = [CBUUID UUIDWithString:[AKCBKeyValueStoreUtils getUUID]];
+                self.readCharacteristicUDID = [CBUUID UUIDWithString:@"0000"];
+                self.writeCharacteristicUDID = [CBUUID UUIDWithString:@"0001"];
+                self.createCharacteristicUDID = [CBUUID UUIDWithString:@"0002"];
+                self.deleteCharacteristicUDID = [CBUUID UUIDWithString:@"0003"];
             }
             
             CBMutableService *service = [[CBMutableService alloc] initWithType:self.serviceUDID primary:YES];
+
+            CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:self.readCharacteristicUDID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
+            CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:self.writeCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
+            CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:self.createCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
+            CBMutableCharacteristic *characteristic4 = [[CBMutableCharacteristic alloc] initWithType:self.deleteCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
             
-            service.characteristics = @[[[CBMutableCharacteristic alloc] initWithType:self.valueCharactericUDID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsWriteable]];
+            service.characteristics = @[characteristic1, characteristic2, characteristic3, characteristic4];
             
             [peripheral addService:service];
         } break;
@@ -69,12 +81,10 @@
             didAddService:(CBService *)service
                     error:(NSError *)error {
     
-    NSDictionary *advertisingData = @{
-                                      CBAdvertisementDataLocalNameKey:self.serviceName,
-                                      CBAdvertisementDataServiceUUIDsKey:@[self.serviceUDID]
-                                    };
-    
-    [peripheral startAdvertising:advertisingData];
+    [peripheral startAdvertising:@{
+               CBAdvertisementDataLocalNameKey:self.serviceName,
+               CBAdvertisementDataServiceUUIDsKey:@[self.serviceUDID]
+               }];
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
@@ -87,14 +97,27 @@
 
 }
 
-# pragma mark - helpers
+# pragma mark - Basic functionality
 
-+ (NSString *)getUUID {
-    CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
-    NSString * uuidString = (__bridge_transfer NSString*)CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
-    CFRelease(newUniqueId);
-    
-    return uuidString;
+- (NSArray *)_allObjectUUIDs {
+    return [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
+}
+
+- (void)_setObject:(NSData *)object forUUID:(NSString *)uuid {
+    [[NSUserDefaults standardUserDefaults] setObject:object forKey:uuid];
+}
+
+- (NSData *)_objectForUUID:(NSString *)uuid {
+    id object = [[NSUserDefaults standardUserDefaults] objectForKey:uuid];
+    return (object != [NSNull null]) ? object : nil;
+}
+
+- (void)_removeObjectForUUID:(NSString *)uuid {
+    return [[NSUserDefaults standardUserDefaults] removeObjectForKey:uuid];
+}
+
+- (void)_createObjectForUUID:(NSString *)uuid {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNull null] forKey:uuid];
 }
 
 @end

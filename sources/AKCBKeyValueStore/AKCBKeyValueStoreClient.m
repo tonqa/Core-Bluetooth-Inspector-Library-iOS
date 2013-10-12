@@ -19,12 +19,28 @@
     
 }
 
-- (void)sendValue:(id)value forKey:(NSString *)key
-       completion:(AKHandlerWithoutResult)completion {
+- (void)getAllObjectUUIDs:(AKHandlerWithResult)completion {
+    
 }
 
-- (void)fetchValueForKey:(NSString *)key
-              completion:(AKHandlerWithResult)completion {
+- (void)getObjectWithUUID:(NSString *)uuid
+               completion:(AKHandlerWithResult)completion {
+    
+}
+
+- (void)deleteObjectWithUUID:(NSString *)uuid
+                  completion:(AKHandlerWithoutResult)completion {
+    
+}
+
+- (void)createObjectWithUUID:(NSString *)uuid
+                  completion:(AKHandlerWithoutResult)completio {
+    
+}
+
+- (void)setValue:(NSData *)value forObjectUUID:(NSString *)uuid
+      completion:(AKHandlerWithoutResult)completion {
+    
 }
 
 @end
