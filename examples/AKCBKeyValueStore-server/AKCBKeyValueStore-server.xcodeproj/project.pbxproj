@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1136B3D71809244F00B39BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3D61809244F00B39BDE /* Foundation.framework */; };
+		1136B3D91809244F00B39BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3D81809244F00B39BDE /* CoreGraphics.framework */; };
+		1136B3DB1809244F00B39BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3DA1809244F00B39BDE /* UIKit.framework */; };
+		1136B3E11809244F00B39BDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1136B3DF1809244F00B39BDE /* InfoPlist.strings */; };
+		1136B3E31809244F00B39BDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B3E21809244F00B39BDE /* main.m */; };
+		1136B3E71809244F00B39BDE /* AKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B3E61809244F00B39BDE /* AKAppDelegate.m */; };
+		1136B3EA1809244F00B39BDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1136B3E81809244F00B39BDE /* Main.storyboard */; };
+		1136B3ED1809244F00B39BDE /* AKMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B3EC1809244F00B39BDE /* AKMasterViewController.m */; };
+		1136B3F01809244F00B39BDE /* AKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B3EF1809244F00B39BDE /* AKDetailViewController.m */; };
+		1136B3F21809244F00B39BDE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1136B3F11809244F00B39BDE /* Images.xcassets */; };
+		1136B3F91809244F00B39BDE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3F81809244F00B39BDE /* XCTest.framework */; };
+		1136B3FA1809244F00B39BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3D61809244F00B39BDE /* Foundation.framework */; };
+		1136B3FB1809244F00B39BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B3DA1809244F00B39BDE /* UIKit.framework */; };
+		1136B4031809244F00B39BDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1136B4011809244F00B39BDE /* InfoPlist.strings */; };
+		1136B4051809244F00B39BDE /* AKCBKeyValueStore_serverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */; };
+		1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B40E180925C800B39BDE /* CoreBluetooth.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1136B3FC1809244F00B39BDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1136B3CB1809244F00B39BDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1136B3D21809244F00B39BDE;
+			remoteInfo = "AKCBKeyValueStore-server";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1136B3D31809244F00B39BDE /* AKCBKeyValueStore-server.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AKCBKeyValueStore-server.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1136B3D61809244F00B39BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1136B3D81809244F00B39BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1136B3DA1809244F00B39BDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1136B3DE1809244F00B39BDE /* AKCBKeyValueStore-server-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AKCBKeyValueStore-server-Info.plist"; sourceTree = "<group>"; };
+		1136B3E01809244F00B39BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1136B3E21809244F00B39BDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1136B3E41809244F00B39BDE /* AKCBKeyValueStore-server-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AKCBKeyValueStore-server-Prefix.pch"; sourceTree = "<group>"; };
+		1136B3E51809244F00B39BDE /* AKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKAppDelegate.h; sourceTree = "<group>"; };
+		1136B3E61809244F00B39BDE /* AKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKAppDelegate.m; sourceTree = "<group>"; };
+		1136B3E91809244F00B39BDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1136B3EB1809244F00B39BDE /* AKMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKMasterViewController.h; sourceTree = "<group>"; };
+		1136B3EC1809244F00B39BDE /* AKMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKMasterViewController.m; sourceTree = "<group>"; };
+		1136B3EE1809244F00B39BDE /* AKDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKDetailViewController.h; sourceTree = "<group>"; };
+		1136B3EF1809244F00B39BDE /* AKDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKDetailViewController.m; sourceTree = "<group>"; };
+		1136B3F11809244F00B39BDE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1136B3F71809244F00B39BDE /* AKCBKeyValueStore-serverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AKCBKeyValueStore-serverTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1136B3F81809244F00B39BDE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1136B4001809244F00B39BDE /* AKCBKeyValueStore-serverTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AKCBKeyValueStore-serverTests-Info.plist"; sourceTree = "<group>"; };
+		1136B4021809244F00B39BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStore_serverTests.m; sourceTree = "<group>"; };
+		1136B40E180925C800B39BDE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1136B3D01809244F00B39BDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */,
+				1136B3D91809244F00B39BDE /* CoreGraphics.framework in Frameworks */,
+				1136B3DB1809244F00B39BDE /* UIKit.framework in Frameworks */,
+				1136B3D71809244F00B39BDE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1136B3F41809244F00B39BDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B3F91809244F00B39BDE /* XCTest.framework in Frameworks */,
+				1136B3FB1809244F00B39BDE /* UIKit.framework in Frameworks */,
+				1136B3FA1809244F00B39BDE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1136B3CA1809244F00B39BDE = {
+			isa = PBXGroup;
+			children = (
+				1136B3DC1809244F00B39BDE /* AKCBKeyValueStore-server */,
+				1136B3FE1809244F00B39BDE /* AKCBKeyValueStore-serverTests */,
+				1136B3D51809244F00B39BDE /* Frameworks */,
+				1136B3D41809244F00B39BDE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1136B3D41809244F00B39BDE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1136B3D31809244F00B39BDE /* AKCBKeyValueStore-server.app */,
+				1136B3F71809244F00B39BDE /* AKCBKeyValueStore-serverTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1136B3D51809244F00B39BDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1136B40E180925C800B39BDE /* CoreBluetooth.framework */,
+				1136B3D61809244F00B39BDE /* Foundation.framework */,
+				1136B3D81809244F00B39BDE /* CoreGraphics.framework */,
+				1136B3DA1809244F00B39BDE /* UIKit.framework */,
+				1136B3F81809244F00B39BDE /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1136B3DC1809244F00B39BDE /* AKCBKeyValueStore-server */ = {
+			isa = PBXGroup;
+			children = (
+				1136B3E51809244F00B39BDE /* AKAppDelegate.h */,
+				1136B3E61809244F00B39BDE /* AKAppDelegate.m */,
+				1136B3E81809244F00B39BDE /* Main.storyboard */,
+				1136B3EB1809244F00B39BDE /* AKMasterViewController.h */,
+				1136B3EC1809244F00B39BDE /* AKMasterViewController.m */,
+				1136B3EE1809244F00B39BDE /* AKDetailViewController.h */,
+				1136B3EF1809244F00B39BDE /* AKDetailViewController.m */,
+				1136B3F11809244F00B39BDE /* Images.xcassets */,
+				1136B3DD1809244F00B39BDE /* Supporting Files */,
+			);
+			path = "AKCBKeyValueStore-server";
+			sourceTree = "<group>";
+		};
+		1136B3DD1809244F00B39BDE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1136B3DE1809244F00B39BDE /* AKCBKeyValueStore-server-Info.plist */,
+				1136B3DF1809244F00B39BDE /* InfoPlist.strings */,
+				1136B3E21809244F00B39BDE /* main.m */,
+				1136B3E41809244F00B39BDE /* AKCBKeyValueStore-server-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1136B3FE1809244F00B39BDE /* AKCBKeyValueStore-serverTests */ = {
+			isa = PBXGroup;
+			children = (
+				1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */,
+				1136B3FF1809244F00B39BDE /* Supporting Files */,
+			);
+			path = "AKCBKeyValueStore-serverTests";
+			sourceTree = "<group>";
+		};
+		1136B3FF1809244F00B39BDE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1136B4001809244F00B39BDE /* AKCBKeyValueStore-serverTests-Info.plist */,
+				1136B4011809244F00B39BDE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1136B3D21809244F00B39BDE /* AKCBKeyValueStore-server */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1136B4081809244F00B39BDE /* Build configuration list for PBXNativeTarget "AKCBKeyValueStore-server" */;
+			buildPhases = (
+				1136B3CF1809244F00B39BDE /* Sources */,
+				1136B3D01809244F00B39BDE /* Frameworks */,
+				1136B3D11809244F00B39BDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AKCBKeyValueStore-server";
+			productName = "AKCBKeyValueStore-server";
+			productReference = 1136B3D31809244F00B39BDE /* AKCBKeyValueStore-server.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1136B3F61809244F00B39BDE /* AKCBKeyValueStore-serverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1136B40B1809244F00B39BDE /* Build configuration list for PBXNativeTarget "AKCBKeyValueStore-serverTests" */;
+			buildPhases = (
+				1136B3F31809244F00B39BDE /* Sources */,
+				1136B3F41809244F00B39BDE /* Frameworks */,
+				1136B3F51809244F00B39BDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1136B3FD1809244F00B39BDE /* PBXTargetDependency */,
+			);
+			name = "AKCBKeyValueStore-serverTests";
+			productName = "AKCBKeyValueStore-serverTests";
+			productReference = 1136B3F71809244F00B39BDE /* AKCBKeyValueStore-serverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1136B3CB1809244F00B39BDE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AK;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Alexander Koglin";
+				TargetAttributes = {
+					1136B3F61809244F00B39BDE = {
+						TestTargetID = 1136B3D21809244F00B39BDE;
+					};
+				};
+			};
+			buildConfigurationList = 1136B3CE1809244F00B39BDE /* Build configuration list for PBXProject "AKCBKeyValueStore-server" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1136B3CA1809244F00B39BDE;
+			productRefGroup = 1136B3D41809244F00B39BDE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1136B3D21809244F00B39BDE /* AKCBKeyValueStore-server */,
+				1136B3F61809244F00B39BDE /* AKCBKeyValueStore-serverTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1136B3D11809244F00B39BDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B3F21809244F00B39BDE /* Images.xcassets in Resources */,
+				1136B3E11809244F00B39BDE /* InfoPlist.strings in Resources */,
+				1136B3EA1809244F00B39BDE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1136B3F51809244F00B39BDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B4031809244F00B39BDE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1136B3CF1809244F00B39BDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B3E71809244F00B39BDE /* AKAppDelegate.m in Sources */,
+				1136B3F01809244F00B39BDE /* AKDetailViewController.m in Sources */,
+				1136B3ED1809244F00B39BDE /* AKMasterViewController.m in Sources */,
+				1136B3E31809244F00B39BDE /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1136B3F31809244F00B39BDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1136B4051809244F00B39BDE /* AKCBKeyValueStore_serverTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1136B3FD1809244F00B39BDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1136B3D21809244F00B39BDE /* AKCBKeyValueStore-server */;
+			targetProxy = 1136B3FC1809244F00B39BDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1136B3DF1809244F00B39BDE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1136B3E01809244F00B39BDE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1136B3E81809244F00B39BDE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1136B3E91809244F00B39BDE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1136B4011809244F00B39BDE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1136B4021809244F00B39BDE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1136B4061809244F00B39BDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1136B4071809244F00B39BDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1136B4091809244F00B39BDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
+				INFOPLIST_FILE = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1136B40A1809244F00B39BDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
+				INFOPLIST_FILE = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1136B40C1809244F00B39BDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AKCBKeyValueStore-server.app/AKCBKeyValueStore-server";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AKCBKeyValueStore-serverTests/AKCBKeyValueStore-serverTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1136B40D1809244F00B39BDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AKCBKeyValueStore-server.app/AKCBKeyValueStore-server";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
+				INFOPLIST_FILE = "AKCBKeyValueStore-serverTests/AKCBKeyValueStore-serverTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1136B3CE1809244F00B39BDE /* Build configuration list for PBXProject "AKCBKeyValueStore-server" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1136B4061809244F00B39BDE /* Debug */,
+				1136B4071809244F00B39BDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1136B4081809244F00B39BDE /* Build configuration list for PBXNativeTarget "AKCBKeyValueStore-server" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1136B4091809244F00B39BDE /* Debug */,
+				1136B40A1809244F00B39BDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1136B40B1809244F00B39BDE /* Build configuration list for PBXNativeTarget "AKCBKeyValueStore-serverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1136B40C1809244F00B39BDE /* Debug */,
+				1136B40D1809244F00B39BDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1136B3CB1809244F00B39BDE /* Project object */;
+}

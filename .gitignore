@@ -1,0 +1,17 @@
+### macos
+.DS_Store
+
+### xcode
+*.class
+*.mode1v3
+*.pbxuser
+*.perspectivev3
+*.xcbkptlist
+*.xcuserdata/*
+*.xcuserdatad
+*.xcuserdatad/*
+*.xcuserstate
+*/.idea/*
+DerivedData
+xcuserdata/*
+*.build/

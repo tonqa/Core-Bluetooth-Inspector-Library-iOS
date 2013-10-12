@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6228274E-2BF0-48C2-A14F-FDE75B441FDF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AKCBKeyValueStore</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E898509D-1124-40ED-B811-5B37260F2182</key>
+		<string>https://github.com/tonqa/AKCBKeyValueStore-server-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sources/AKCBKeyValueStore/AKCBKeyValueStore.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E898509D-1124-40ED-B811-5B37260F2182</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tonqa/AKCBKeyValueStore-server-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E898509D-1124-40ED-B811-5B37260F2182</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E898509D-1124-40ED-B811-5B37260F2182</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AKCBKeyValueStore-server-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>
