@@ -10,4 +10,6 @@
 
 @interface AKCBKeyValueStore : NSObject
 
+- (NSString *)helloWorld;
+
 @end

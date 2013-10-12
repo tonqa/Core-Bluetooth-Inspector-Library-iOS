@@ -16,6 +16,7 @@
 		111C21E8180926560015EC85 /* libAKCBKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 111C21D0180926560015EC85 /* libAKCBKeyValueStore.a */; };
 		111C21EE180926560015EC85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 111C21EC180926560015EC85 /* InfoPlist.strings */; };
 		111C21F0180926560015EC85 /* AKCBKeyValueStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C21EF180926560015EC85 /* AKCBKeyValueStoreTests.m */; };
+		1173044C180945480016404F /* AKCBKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 111C21D8180926560015EC85 /* AKCBKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,15 +39,6 @@
 				111C21D9180926560015EC85 /* AKCBKeyValueStore.h in Copy Files */,
 			);
 			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11634C8E180929CD0049144C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -155,6 +147,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		11B0E6C01809452300ABE54D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1173044C180945480016404F /* AKCBKeyValueStore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		111C21CF180926560015EC85 /* AKCBKeyValueStore */ = {
 			isa = PBXNativeTarget;
@@ -163,7 +166,7 @@
 				111C21CC180926560015EC85 /* Sources */,
 				111C21CD180926560015EC85 /* Frameworks */,
 				111C21CE180926560015EC85 /* Copy Files */,
-				11634C8E180929CD0049144C /* CopyFiles */,
+				11B0E6C01809452300ABE54D /* Headers */,
 			);
 			buildRules = (
 			);

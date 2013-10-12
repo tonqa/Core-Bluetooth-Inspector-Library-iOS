@@ -23,6 +23,7 @@
 		1136B4031809244F00B39BDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1136B4011809244F00B39BDE /* InfoPlist.strings */; };
 		1136B4051809244F00B39BDE /* AKCBKeyValueStore_serverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */; };
 		1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B40E180925C800B39BDE /* CoreBluetooth.framework */; };
+		117304581809457E0016404F /* libAKCBKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11730453180945630016404F /* libAKCBKeyValueStore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1136B3D21809244F00B39BDE;
 			remoteInfo = "AKCBKeyValueStore-server";
+		};
+		11730452180945630016404F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 111C21D0180926560015EC85;
+			remoteInfo = AKCBKeyValueStore;
+		};
+		11730454180945630016404F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 111C21E0180926560015EC85;
+			remoteInfo = AKCBKeyValueStoreTests;
+		};
+		11730456180945790016404F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 111C21CF180926560015EC85;
+			remoteInfo = AKCBKeyValueStore;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,6 +80,7 @@
 		1136B4021809244F00B39BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStore_serverTests.m; sourceTree = "<group>"; };
 		1136B40E180925C800B39BDE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AKCBKeyValueStore.xcodeproj; path = ../../sources/AKCBKeyValueStore.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				117304581809457E0016404F /* libAKCBKeyValueStore.a in Frameworks */,
 				1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */,
 				1136B3D91809244F00B39BDE /* CoreGraphics.framework in Frameworks */,
 				1136B3DB1809244F00B39BDE /* UIKit.framework in Frameworks */,
@@ -88,6 +112,7 @@
 		1136B3CA1809244F00B39BDE = {
 			isa = PBXGroup;
 			children = (
+				1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */,
 				1136B3DC1809244F00B39BDE /* AKCBKeyValueStore-server */,
 				1136B3FE1809244F00B39BDE /* AKCBKeyValueStore-serverTests */,
 				1136B3D51809244F00B39BDE /* Frameworks */,
@@ -161,6 +186,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1173044E180945630016404F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11730453180945630016404F /* libAKCBKeyValueStore.a */,
+				11730455180945630016404F /* AKCBKeyValueStoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,6 +209,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				11730457180945790016404F /* PBXTargetDependency */,
 			);
 			name = "AKCBKeyValueStore-server";
 			productName = "AKCBKeyValueStore-server";
@@ -225,6 +260,12 @@
 			mainGroup = 1136B3CA1809244F00B39BDE;
 			productRefGroup = 1136B3D41809244F00B39BDE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1173044E180945630016404F /* Products */;
+					ProjectRef = 1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1136B3D21809244F00B39BDE /* AKCBKeyValueStore-server */,
@@ -232,6 +273,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		11730453180945630016404F /* libAKCBKeyValueStore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAKCBKeyValueStore.a;
+			remoteRef = 11730452180945630016404F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11730455180945630016404F /* AKCBKeyValueStoreTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AKCBKeyValueStoreTests.xctest;
+			remoteRef = 11730454180945630016404F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1136B3D11809244F00B39BDE /* Resources */ = {
@@ -281,6 +339,11 @@
 			isa = PBXTargetDependency;
 			target = 1136B3D21809244F00B39BDE /* AKCBKeyValueStore-server */;
 			targetProxy = 1136B3FC1809244F00B39BDE /* PBXContainerItemProxy */;
+		};
+		11730457180945790016404F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AKCBKeyValueStore;
+			targetProxy = 11730456180945790016404F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -471,6 +534,7 @@
 				1136B40A1809244F00B39BDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1136B40B1809244F00B39BDE /* Build configuration list for PBXNativeTarget "AKCBKeyValueStore-serverTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +543,7 @@
 				1136B40D1809244F00B39BDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
