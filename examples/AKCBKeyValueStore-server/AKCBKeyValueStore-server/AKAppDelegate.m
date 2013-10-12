@@ -16,7 +16,7 @@
 {
     // Override point for customization after application launch.
     
-    NSLog(@"%@", [[AKCBKeyValueStore new] helloWorld]);
+    NSLog(@"%@", [AKCBKeyValueStore helloWorld]);
     
     return YES;
 }

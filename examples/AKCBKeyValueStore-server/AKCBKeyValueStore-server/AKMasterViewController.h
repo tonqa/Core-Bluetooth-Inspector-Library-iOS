@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AKMasterViewController : UITableViewController
+#import <CoreBluetooth/CoreBluetooth.h>
+
+@interface AKMasterViewController : UITableViewController <CBPeripheralManagerDelegate>
 
 @end

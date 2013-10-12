@@ -17,6 +17,15 @@
 		111C21EE180926560015EC85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 111C21EC180926560015EC85 /* InfoPlist.strings */; };
 		111C21F0180926560015EC85 /* AKCBKeyValueStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C21EF180926560015EC85 /* AKCBKeyValueStoreTests.m */; };
 		1173044C180945480016404F /* AKCBKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 111C21D8180926560015EC85 /* AKCBKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11730468180948EE0016404F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11730467180948EE0016404F /* CoreBluetooth.framework */; };
+		1173046E18097DAB0016404F /* AKCBKeyValueStoreServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1173046C18097DAB0016404F /* AKCBKeyValueStoreServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1173046F18097DAB0016404F /* AKCBKeyValueStoreServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1173046D18097DAB0016404F /* AKCBKeyValueStoreServer.m */; };
+		1173047218097DC70016404F /* AKCBKeyValueStoreClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1173047018097DC70016404F /* AKCBKeyValueStoreClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1173047318097DC70016404F /* AKCBKeyValueStoreClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1173047118097DC70016404F /* AKCBKeyValueStoreClient.m */; };
+		1173047518097E1D0016404F /* AKCBKeyValueStoreConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1173047618097FD00016404F /* AKCBKeyValueStoreConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */; };
+		1173047718097FD00016404F /* AKCBKeyValueStoreServer.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1173046C18097DAB0016404F /* AKCBKeyValueStoreServer.h */; };
+		1173047818097FD00016404F /* AKCBKeyValueStoreClient.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1173047018097DC70016404F /* AKCBKeyValueStoreClient.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +45,9 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				1173047618097FD00016404F /* AKCBKeyValueStoreConstants.h in Copy Files */,
+				1173047718097FD00016404F /* AKCBKeyValueStoreServer.h in Copy Files */,
+				1173047818097FD00016404F /* AKCBKeyValueStoreClient.h in Copy Files */,
 				111C21D9180926560015EC85 /* AKCBKeyValueStore.h in Copy Files */,
 			);
 			name = "Copy Files";
@@ -55,6 +67,12 @@
 		111C21EB180926560015EC85 /* AKCBKeyValueStoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AKCBKeyValueStoreTests-Info.plist"; sourceTree = "<group>"; };
 		111C21ED180926560015EC85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		111C21EF180926560015EC85 /* AKCBKeyValueStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStoreTests.m; sourceTree = "<group>"; };
+		11730467180948EE0016404F /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1173046C18097DAB0016404F /* AKCBKeyValueStoreServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStoreServer.h; sourceTree = "<group>"; };
+		1173046D18097DAB0016404F /* AKCBKeyValueStoreServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStoreServer.m; sourceTree = "<group>"; };
+		1173047018097DC70016404F /* AKCBKeyValueStoreClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStoreClient.h; sourceTree = "<group>"; };
+		1173047118097DC70016404F /* AKCBKeyValueStoreClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStoreClient.m; sourceTree = "<group>"; };
+		1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStoreConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11730468180948EE0016404F /* CoreBluetooth.framework in Frameworks */,
 				111C21D4180926560015EC85 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +121,7 @@
 		111C21D2180926560015EC85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11730467180948EE0016404F /* CoreBluetooth.framework */,
 				111C21D3180926560015EC85 /* Foundation.framework */,
 				111C21E1180926560015EC85 /* XCTest.framework */,
 				111C21E4180926560015EC85 /* UIKit.framework */,
@@ -114,6 +134,11 @@
 			children = (
 				111C21D8180926560015EC85 /* AKCBKeyValueStore.h */,
 				111C21DA180926560015EC85 /* AKCBKeyValueStore.m */,
+				1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */,
+				1173046C18097DAB0016404F /* AKCBKeyValueStoreServer.h */,
+				1173046D18097DAB0016404F /* AKCBKeyValueStoreServer.m */,
+				1173047018097DC70016404F /* AKCBKeyValueStoreClient.h */,
+				1173047118097DC70016404F /* AKCBKeyValueStoreClient.m */,
 				111C21D6180926560015EC85 /* Supporting Files */,
 			);
 			path = AKCBKeyValueStore;
@@ -153,6 +178,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1173044C180945480016404F /* AKCBKeyValueStore.h in Headers */,
+				1173046E18097DAB0016404F /* AKCBKeyValueStoreServer.h in Headers */,
+				1173047218097DC70016404F /* AKCBKeyValueStoreClient.h in Headers */,
+				1173047518097E1D0016404F /* AKCBKeyValueStoreConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +195,7 @@
 				111C21CD180926560015EC85 /* Frameworks */,
 				111C21CE180926560015EC85 /* Copy Files */,
 				11B0E6C01809452300ABE54D /* Headers */,
+				11730479180988190016404F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -233,12 +262,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11730479180988190016404F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# recreate the library folder\nrm -rf \"$PROJECT_DIR/lib\"\nmkdir \"$PROJECT_DIR/lib\"\n\n# copy the include headers and the static lib\ncp -R \"$TARGET_BUILD_DIR/include\" \"$PROJECT_DIR/lib/include\"\ncp -R \"$TARGET_BUILD_DIR/libAKCBKeyValueStore.a\" \"$PROJECT_DIR/lib/libAKCBKeyValueStore.a\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		111C21CC180926560015EC85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				111C21DB180926560015EC85 /* AKCBKeyValueStore.m in Sources */,
+				1173047318097DC70016404F /* AKCBKeyValueStoreClient.m in Sources */,
+				1173046F18097DAB0016404F /* AKCBKeyValueStoreServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

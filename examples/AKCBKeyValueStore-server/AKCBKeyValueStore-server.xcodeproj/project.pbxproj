@@ -24,6 +24,7 @@
 		1136B4051809244F00B39BDE /* AKCBKeyValueStore_serverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */; };
 		1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B40E180925C800B39BDE /* CoreBluetooth.framework */; };
 		117304581809457E0016404F /* libAKCBKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11730453180945630016404F /* libAKCBKeyValueStore.a */; };
+		1173046B180950E90016404F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1173046A180950E90016404F /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStore_serverTests.m; sourceTree = "<group>"; };
 		1136B40E180925C800B39BDE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AKCBKeyValueStore.xcodeproj; path = ../../sources/AKCBKeyValueStore.xcodeproj; sourceTree = "<group>"; };
+		11730469180950E90016404F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1173046A180950E90016404F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,8 @@
 				1136B3EF1809244F00B39BDE /* AKDetailViewController.m */,
 				1136B3F11809244F00B39BDE /* Images.xcassets */,
 				1136B3DD1809244F00B39BDE /* Supporting Files */,
+				11730469180950E90016404F /* ViewController.h */,
+				1173046A180950E90016404F /* ViewController.m */,
 			);
 			path = "AKCBKeyValueStore-server";
 			sourceTree = "<group>";
@@ -244,6 +249,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Alexander Koglin";
 				TargetAttributes = {
+					1136B3D21809244F00B39BDE = {
+						DevelopmentTeam = 85XT4HAH76;
+					};
 					1136B3F61809244F00B39BDE = {
 						TestTargetID = 1136B3D21809244F00B39BDE;
 					};
@@ -321,6 +329,7 @@
 				1136B3F01809244F00B39BDE /* AKDetailViewController.m in Sources */,
 				1136B3ED1809244F00B39BDE /* AKMasterViewController.m in Sources */,
 				1136B3E31809244F00B39BDE /* main.m in Sources */,
+				1173046B180950E90016404F /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,10 +461,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
 				INFOPLIST_FILE = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -465,10 +477,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Prefix.pch";
 				INFOPLIST_FILE = "AKCBKeyValueStore-server/AKCBKeyValueStore-server-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

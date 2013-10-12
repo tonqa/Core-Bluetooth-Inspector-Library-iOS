@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
+#import <AKCBKeyValueStore/AKCBKeyValueStoreServer.h>
+#import <AKCBKeyValueStore/AKCBKeyValueStoreClient.h>
+
+// TODO: Needs to be renamed to AKCBStorage
 @interface AKCBKeyValueStore : NSObject
 
-- (NSString *)helloWorld;
++ (NSString *)helloWorld;
 
 @end

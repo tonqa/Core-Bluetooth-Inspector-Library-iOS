@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
+#import <AKCBKeyValueStore/AKCBKeyValueStoreServer.h>
+#import <AKCBKeyValueStore/AKCBKeyValueStoreClient.h>
+
 @interface AKCBKeyValueStore : NSObject
+
++ (NSString *)helloWorld;
 
 @end

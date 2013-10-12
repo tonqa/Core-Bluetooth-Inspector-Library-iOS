@@ -10,7 +10,7 @@
 
 @implementation AKCBKeyValueStore
 
-- (NSString *)helloWorld {
++ (NSString *)helloWorld {
     return @"Hello World";
 }
 
