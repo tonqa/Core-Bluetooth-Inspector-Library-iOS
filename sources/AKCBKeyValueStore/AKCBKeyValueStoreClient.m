@@ -19,7 +19,7 @@
     
 }
 
-- (void)writeValue:(id)value withID:(NSString *)identifier
+- (void)writeValue:(id<NSCopying>)value withID:(NSString *)identifier
         completion:(AKHandlerWithoutResult)completion {
     
 }

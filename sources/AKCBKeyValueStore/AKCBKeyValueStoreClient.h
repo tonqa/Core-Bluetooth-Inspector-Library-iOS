@@ -13,6 +13,10 @@
 
 @protocol AKCBKeyValueStoreClientDelegate <NSObject>
 
+/**
+ * This is called when an observed value was changed
+ * on the server side.
+ */
 - (void)observedChangeAtKeyPath:(NSString *)keyPath
                           value:(id)value
                      identifier:(NSString *)identifier
@@ -46,10 +50,13 @@
 
 /**
  * Save a value to the AKCBServer, which we are currently
- * connected to. This operation could fail, which results in an
+ * connected to. The value given must correspond to the
+ * NSCopying protocol to send it over the wire. You can do this
+ * by using NSNumber or NSValue instead of primitive types.
+ * This operation could fail, which results in an
  * error given to the completion block.
  */
-- (void)writeValue:(id)value withID:(NSString *)identifier
+- (void)writeValue:(id<NSCopying>)value withID:(NSString *)identifier
         completion:(AKHandlerWithoutResult)completion;
 
 @end

@@ -10,21 +10,22 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
 
-#define AKCB_INSPECTION_KEY_KEYPATH @"keyPath"
-#define AKCB_INSPECTION_KEY_OBJECT @"object"
-#define AKCB_INSPECTION_KEY_CONTEXT @"context"
-#define AKCB_INSPECTION_KEY_IDENTIFIER @"identifier"
+#define AKCB_INSPECTION_KEY_KEYPATH     @"keyPath"
+#define AKCB_INSPECTION_KEY_OBJECT      @"object"
+#define AKCB_INSPECTION_KEY_CONTEXT     @"context"
+#define AKCB_INSPECTION_KEY_IDENTIFIER  @"identifier"
+#define AKCB_INSPECTION_KEY_SERVICEUUID @"serviceUUID"
 
 @interface AKCBKeyValueStoreServer ()
 
-@property (nonatomic, strong) NSMutableDictionary *inspectedObjects;
-@property (nonatomic, strong) CBPeripheralManager *peripheralManager;
-@property (nonatomic, strong) CBUUID *serviceUDID;
-@property (nonatomic, strong) CBUUID *readCharacteristicUDID;
-@property (nonatomic, strong) CBUUID *writeCharacteristicUDID;
-@property (nonatomic, strong) CBUUID *createCharacteristicUDID;
-@property (nonatomic, strong) CBUUID *deleteCharacteristicUDID;
-@property (nonatomic, copy) NSString *serverName;
+@property (nonatomic, strong)   NSMutableDictionary *inspectedObjects;
+@property (nonatomic, strong)   CBPeripheralManager *peripheralManager;
+@property (nonatomic, copy)     NSString *serverName;
+@property (nonatomic, retain)   NSMutableArray *services;
+
+@property (nonatomic, strong)   CBUUID *readCharacteristicUDID;
+@property (nonatomic, strong)   CBUUID *writeCharacteristicUDID;
+@property (nonatomic, strong)   CBUUID *notifyCharacteristicUDID;
 
 @end
 
@@ -38,6 +39,7 @@
     if (self) {
         self.serverName = serverName;
         self.inspectedObjects = [NSMutableDictionary dictionary];
+        
     }
     return self;
 }
@@ -74,13 +76,20 @@
     
     self.inspectedObjects = nil;
     self.peripheralManager = nil;
-    self.serviceUDID = nil;
+    self.services = nil;
     self.serverName = nil;
 }
 
 - (void)continueServices {
-    NSDictionary *advertisingData = @{CBAdvertisementDataServiceUUIDsKey : @[self.serviceUDID]};
-    [self.peripheralManager startAdvertising:advertisingData];
+    NSMutableArray *serviceUUIDs = [NSMutableArray array];
+    for (CBMutableService *service in self.services) {
+        [serviceUUIDs addObject:service.UUID];
+    }
+    
+    [self.peripheralManager startAdvertising:@{
+                                   CBAdvertisementDataLocalNameKey:self.serverName,
+                                   CBAdvertisementDataServiceUUIDsKey:serviceUUIDs
+                                   }];
 }
 
 - (void)pauseServices {
@@ -91,25 +100,31 @@
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     switch (peripheral.state) {
-        case CBPeripheralManagerStatePoweredOn:{
-            if (!self.serviceUDID) {
-                self.serviceUDID = [CBUUID UUIDWithString:[AKCBKeyValueStoreUtils getUUID]];
+        case CBPeripheralManagerStatePoweredOn: {
+            
+            for (NSDictionary *inspectedObject in self.inspectedObjects) {
+                CBUUID *serviceUUID = [CBUUID UUIDWithString:[AKCBKeyValueStoreUtils getUUID]];
+
                 self.readCharacteristicUDID = [CBUUID UUIDWithString:@"0000"];
                 self.writeCharacteristicUDID = [CBUUID UUIDWithString:@"0001"];
-                self.createCharacteristicUDID = [CBUUID UUIDWithString:@"0002"];
-                self.deleteCharacteristicUDID = [CBUUID UUIDWithString:@"0003"];
+                self.notifyCharacteristicUDID = [CBUUID UUIDWithString:@"0002"];
+                
+                // remember the service identifier inside the inspected object dict
+                NSString *objectIdentifier = [inspectedObject objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
+                NSMutableDictionary *inspectedObjectDictCopy = [inspectedObject mutableCopy];
+                [inspectedObjectDictCopy setObject:serviceUUID forKey:AKCB_INSPECTION_KEY_SERVICEUUID];
+                [self.inspectedObjects setObject:inspectedObjectDictCopy forKey:objectIdentifier];
+            
+                CBMutableService *service = [[CBMutableService alloc] initWithType:serviceUUID primary:YES];
+
+                CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:self.readCharacteristicUDID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
+                CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:self.writeCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
+                CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:self.notifyCharacteristicUDID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
+            
+                service.characteristics = @[characteristic1, characteristic2, characteristic3];
+                [peripheral addService:service];
             }
             
-            CBMutableService *service = [[CBMutableService alloc] initWithType:self.serviceUDID primary:YES];
-
-            CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:self.readCharacteristicUDID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
-            CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:self.writeCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
-            CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:self.createCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
-            CBMutableCharacteristic *characteristic4 = [[CBMutableCharacteristic alloc] initWithType:self.deleteCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
-            
-            service.characteristics = @[characteristic1, characteristic2, characteristic3, characteristic4];
-            
-            [peripheral addService:service];
         } break;
             
         default:
@@ -121,14 +136,15 @@
             didAddService:(CBService *)service
                     error:(NSError *)error {
     
-    [peripheral startAdvertising:@{
-               CBAdvertisementDataLocalNameKey:self.serverName,
-               CBAdvertisementDataServiceUUIDsKey:@[self.serviceUDID]
-               }];
+    [self continueServices];
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
     didReceiveReadRequest:(CBATTRequest *)request {
+    
+    NSDictionary *object = [self _objectByServiceUuid:request.characteristic.service.UUID];
+    NSString *identifier = [object objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
+    request.value = [self _persistObjectWithIdentifier:identifier];
     
     [peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
 
@@ -138,6 +154,11 @@
   didReceiveWriteRequests:(NSArray *)requests {
 
     for (CBATTRequest *request in requests) {
+        
+        NSDictionary *objectDict = [AKCBKeyValueStoreUtils deserialize:request.value];
+        id newValue = [objectDict objectForKey:@"value"];
+        [self _setValue:newValue forIdentifier:[objectDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER]];
+        
         [peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
     }
 }
@@ -206,6 +227,15 @@
                              };
     
     return [AKCBKeyValueStoreUtils serialize:responseDictionary];
+}
+
+- (NSDictionary *)_objectByServiceUuid:(CBUUID *)uuid {
+    for (NSDictionary *inspectedObject in self.inspectedObjects) {
+        if ([[inspectedObject objectForKey:AKCB_INSPECTION_KEY_SERVICEUUID] isEqual:uuid]) {
+            return inspectedObject;
+        }
+    }
+    return nil;
 }
 
 @end
