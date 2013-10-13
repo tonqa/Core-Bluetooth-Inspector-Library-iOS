@@ -155,9 +155,10 @@
 
     for (CBATTRequest *request in requests) {
         
-        NSDictionary *objectDict = [AKCBKeyValueStoreUtils deserialize:request.value];
-        id newValue = [objectDict objectForKey:@"value"];
-        [self _setValue:newValue forIdentifier:[objectDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER]];
+        NSDictionary *sentObjectDict = [AKCBKeyValueStoreUtils deserialize:request.value];
+        NSDictionary *localObjectDict = [self _objectByServiceUuid:request.characteristic.service.UUID];
+        [self _setValue:[sentObjectDict objectForKey:@"value"]
+          forIdentifier:[localObjectDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER]];
         
         [peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
     }
