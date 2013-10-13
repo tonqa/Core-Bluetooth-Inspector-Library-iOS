@@ -10,6 +10,8 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface AKMasterViewController : UITableViewController <CBPeripheralManagerDelegate>
+@interface AKMasterViewController : UITableViewController
+
+- (void)changeLoop;
 
 @end

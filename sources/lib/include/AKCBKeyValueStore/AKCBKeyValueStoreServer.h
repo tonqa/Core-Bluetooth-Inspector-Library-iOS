@@ -30,7 +30,6 @@
  */
 - (void)inspectValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                       options:(NSKeyValueObservingOptions)options
                     identifier:(NSString *)identifier
                        context:(id)context;
 

@@ -8,35 +8,20 @@
 
 #import "AKMasterViewController.h"
 
-#import "AKDetailViewController.h"
+#import <AKCBKeyValueStore/AKCBKeyValueStoreServer.h>
 
-#define TRANSFER_SERVICE_UUID @"BLA_SERVICE"
-#define TRANSFER_CHARACTERISTIC_UUID @"BLA_CHARACTERISTIC"
+#import "AKDetailViewController.h"
 
 @interface AKMasterViewController () {
     NSMutableArray *_objects;
 }
 
-@property (nonatomic, strong) CBPeripheralManager *peripheralManager;
+@property (nonatomic, retain) AKCBKeyValueStoreServer *server;
+@property (nonatomic, assign) BOOL observedValue;
 
 @end
 
 @implementation AKMasterViewController
-
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-
-    if (self) {
-        // Start up the CBPeripheralManager
-        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
-        [self.peripheralManager startAdvertising:@{
-                        CBAdvertisementDataServiceUUIDsKey: @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]],
-                        CBAdvertisementDataLocalNameKey : @"Device Name"
-                        }];
-    }
-    
-    return self;
-}
 
 - (void)awakeFromNib
 {
@@ -49,8 +34,24 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                  target:self action:@selector(insertNewObject:)];
+
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.server = [[AKCBKeyValueStoreServer alloc] initWithName:@"Test Server"];
+    [self.server inspectValueForKeyPath:@"observedValue" ofObject:self identifier:@"observedValue" context:nil];
+    [self.server startServices];
+    
+    [self changeLoop];
+
+}
+
+- (void)changeLoop {
+    self.observedValue = !self.observedValue;
+    
+    [self performSelector:@selector(changeLoop) withObject:nil afterDelay:5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,36 +130,6 @@
         NSDate *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
-}
-
-# pragma mark - Discovery
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
-    // Opt out from any other state
-    if (peripheral.state != CBPeripheralManagerStatePoweredOn) {
-        return;
-    }
-    
-    // We're in CBPeripheralManagerStatePoweredOn state...
-    NSLog(@"self.peripheralManager powered on.");
-    
-    // ... so build our service.
-    
-    // Start with the CBMutableCharacteristic
-    CBMutableCharacteristic *transferCharacteristic = [[CBMutableCharacteristic alloc]
-                                                       initWithType:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]
-                                                       properties:CBCharacteristicPropertyNotify
-                                                       value:nil
-                                                       permissions:CBAttributePermissionsReadable];
-    
-    // Then the service
-    CBMutableService *transferService = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]
-                                                                       primary:YES];
-    
-    // Add the characteristic to the service
-    transferService.characteristics = @[transferCharacteristic];
-    
-    // And add it to the peripheral manager
-    [self.peripheralManager addService:transferService];
 }
 
 @end

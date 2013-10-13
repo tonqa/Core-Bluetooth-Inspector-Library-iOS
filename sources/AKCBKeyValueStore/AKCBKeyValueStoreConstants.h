@@ -20,6 +20,10 @@ typedef void (^AKHandlerWithResult)(id, NSError *);
 #define AKCB_INSPECTION_KEY_CONTEXT     @"context"
 #define AKCB_INSPECTION_KEY_IDENTIFIER  @"identifier"
 #define AKCB_INSPECTION_KEY_SERVICEUUID @"serviceUUID"
+#define AKCB_INSPECTION_KEY_SERVICE     @"service"
+#define AKCB_INSPECTION_KEY_READCHARACTERISTIC   @"read"
+#define AKCB_INSPECTION_KEY_WRITECHARACTERISTIC  @"write"
+#define AKCB_INSPECTION_KEY_NOTIFYCHARACTERISTIC @"notify"
 
 #define AKCB_SENT_KEY_SERVER    @"server"
 #define AKCB_SENT_KEY_VALUE     @"value"

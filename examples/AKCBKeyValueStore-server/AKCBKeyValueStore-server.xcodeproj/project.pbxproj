@@ -23,8 +23,7 @@
 		1136B4031809244F00B39BDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1136B4011809244F00B39BDE /* InfoPlist.strings */; };
 		1136B4051809244F00B39BDE /* AKCBKeyValueStore_serverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */; };
 		1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1136B40E180925C800B39BDE /* CoreBluetooth.framework */; };
-		117304581809457E0016404F /* libAKCBKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11730453180945630016404F /* libAKCBKeyValueStore.a */; };
-		1173046B180950E90016404F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1173046A180950E90016404F /* ViewController.m */; };
+		113B6ABC180B3026009595D3 /* libAKCBKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11730453180945630016404F /* libAKCBKeyValueStore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				117304581809457E0016404F /* libAKCBKeyValueStore.a in Frameworks */,
+				113B6ABC180B3026009595D3 /* libAKCBKeyValueStore.a in Frameworks */,
 				1136B40F180925C800B39BDE /* CoreBluetooth.framework in Frameworks */,
 				1136B3D91809244F00B39BDE /* CoreGraphics.framework in Frameworks */,
 				1136B3DB1809244F00B39BDE /* UIKit.framework in Frameworks */,
@@ -329,7 +328,6 @@
 				1136B3F01809244F00B39BDE /* AKDetailViewController.m in Sources */,
 				1136B3ED1809244F00B39BDE /* AKMasterViewController.m in Sources */,
 				1136B3E31809244F00B39BDE /* main.m in Sources */,
-				1173046B180950E90016404F /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
