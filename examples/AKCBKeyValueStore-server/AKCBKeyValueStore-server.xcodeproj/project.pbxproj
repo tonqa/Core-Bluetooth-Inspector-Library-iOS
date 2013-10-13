@@ -81,8 +81,6 @@
 		1136B4041809244F00B39BDE /* AKCBKeyValueStore_serverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStore_serverTests.m; sourceTree = "<group>"; };
 		1136B40E180925C800B39BDE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		1173044D180945630016404F /* AKCBKeyValueStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AKCBKeyValueStore.xcodeproj; path = ../../sources/AKCBKeyValueStore.xcodeproj; sourceTree = "<group>"; };
-		11730469180950E90016404F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1173046A180950E90016404F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +153,6 @@
 				1136B3EF1809244F00B39BDE /* AKDetailViewController.m */,
 				1136B3F11809244F00B39BDE /* Images.xcassets */,
 				1136B3DD1809244F00B39BDE /* Supporting Files */,
-				11730469180950E90016404F /* ViewController.h */,
-				1173046A180950E90016404F /* ViewController.m */,
 			);
 			path = "AKCBKeyValueStore-server";
 			sourceTree = "<group>";
