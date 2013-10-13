@@ -18,4 +18,12 @@
     return uuidString;
 }
 
++ (NSData *)serialize:(id)object {
+    return [NSJSONSerialization dataWithJSONObject:object options:kNilOptions error:nil];
+}
+
++ (id)deserialize:(NSData *)data {
+    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:NULL];
+}
+
 @end

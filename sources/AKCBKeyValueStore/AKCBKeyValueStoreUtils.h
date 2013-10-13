@@ -11,5 +11,7 @@
 @interface AKCBKeyValueStoreUtils : NSObject
 
 + (NSString *)getUUID;
++ (NSData *)serialize:(id)object;
++ (id)deserialize:(NSData *)data;
 
 @end

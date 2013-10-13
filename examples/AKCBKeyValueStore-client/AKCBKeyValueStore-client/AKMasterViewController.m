@@ -13,6 +13,9 @@
 @interface AKMasterViewController () {
     NSMutableArray *_objects;
 }
+
+@property (nonatomic, retain) AKCBKeyValueStoreServer *server;
+
 @end
 
 @implementation AKMasterViewController

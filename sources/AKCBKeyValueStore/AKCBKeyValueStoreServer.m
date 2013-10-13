@@ -8,7 +8,7 @@
 
 #import "AKCBKeyValueStoreServer.h"
 
-#import "AKCBKeyValueStoreUtils.h"
+#import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
 
 @interface AKCBKeyValueStoreServer ()
 
@@ -90,11 +90,16 @@
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
     didReceiveReadRequest:(CBATTRequest *)request {
     
+    [peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
+
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
   didReceiveWriteRequests:(NSArray *)requests {
 
+    for (CBATTRequest *request in requests) {
+        [peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
+    }
 }
 
 # pragma mark - Basic functionality
@@ -118,6 +123,10 @@
 
 - (void)_createObjectForUUID:(NSString *)uuid {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNull null] forKey:uuid];
+}
+
+- (NSData *)_emptyObject {
+    return [AKCBKeyValueStoreUtils serialize:@{}];
 }
 
 @end

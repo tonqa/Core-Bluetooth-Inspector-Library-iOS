@@ -11,6 +11,8 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
 
+
+
 @interface AKCBKeyValueStoreServer : NSObject <CBPeripheralManagerDelegate>
 
 /**
@@ -19,10 +21,24 @@
 @property (nonatomic, strong) NSArray *connectedClients;
 
 /**
+ * Initializes the server with a name, which will be observable at the client side.
+ */
+- (id)initWithName:(NSString *)serverName;
+
+/**
+ * Observes a value at a keyPath and sets up
+ */
+- (void)inspectValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                    identifier:(NSString *)identifier
+                       context:(id)context;
+
+/**
  * This starts a AKCBKeyValueStore service, where
  * clients can connect to.
  */
-- (void)startServiceWithName:(NSString *)serviceName;
+- (void)startService;
 
 /**
  * This stops the current service.
