@@ -10,12 +10,6 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
 
-#define AKCB_INSPECTION_KEY_KEYPATH     @"keyPath"
-#define AKCB_INSPECTION_KEY_OBJECT      @"object"
-#define AKCB_INSPECTION_KEY_CONTEXT     @"context"
-#define AKCB_INSPECTION_KEY_IDENTIFIER  @"identifier"
-#define AKCB_INSPECTION_KEY_SERVICEUUID @"serviceUUID"
-
 @interface AKCBKeyValueStoreServer ()
 
 @property (nonatomic, strong)   NSMutableDictionary *inspectedObjects;
@@ -220,11 +214,11 @@
     id context = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_CONTEXT];
 
     NSDictionary *responseDictionary = @{
-                             @"id": identifier,
-                             @"keyPath": keyPath,
-                             @"value": [self _valueForIdentifier:identifier],
-                             @"context": context ?: [NSNull null],
-                             @"server": self.serverName
+                             AKCB_INSPECTION_KEY_IDENTIFIER: identifier,
+                             AKCB_INSPECTION_KEY_KEYPATH: keyPath,
+                             AKCB_INSPECTION_KEY_CONTEXT: context ?: [NSNull null],
+                             AKCB_SENT_KEY_VALUE: [self _valueForIdentifier:identifier],
+                             AKCB_SENT_KEY_SERVER: self.serverName
                              };
     
     return [AKCBKeyValueStoreUtils serialize:responseDictionary];
