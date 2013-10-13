@@ -192,4 +192,20 @@
     [object setValue:value forKeyPath:keyPath];
 }
 
+- (NSData *)_persistObjectWithIdentifier:(NSString *)identifier {
+    NSDictionary *inspectedObjectDict = [self.inspectedObjects objectForKey:identifier];
+    NSString *keyPath = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH];
+    id context = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_CONTEXT];
+
+    NSDictionary *responseDictionary = @{
+                             @"id": identifier,
+                             @"keyPath": keyPath,
+                             @"value": [self _valueForIdentifier:identifier],
+                             @"context": context ?: [NSNull null],
+                             @"server": self.serverName
+                             };
+    
+    return [AKCBKeyValueStoreUtils serialize:responseDictionary];
+}
+
 @end

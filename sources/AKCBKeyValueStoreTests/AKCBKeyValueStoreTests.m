@@ -30,7 +30,7 @@
 
 - (void)testExample
 {
-    XCTAssert(YES, @"Tests can be started for \"%s\"", __PRETTY_FUNCTION__);
+    XCTAssert(YES, @"Tests can't be started for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

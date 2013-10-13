@@ -10,6 +10,8 @@
 #import <AKCBKeyValueStore/AKCBKeyValueStore.h>
 #import <OCMock/OCMock.h>
 
+#import "AKCBKeyValueStoreUtils.h"
+
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
 @interface AKCBKeyValueCodingTest : XCTestCase
@@ -80,6 +82,25 @@
     XCTAssertEqual(self.observedValue, [value boolValue], AKCBFORMAT(@"Observed Value must be read and changed"));
     
     [self.server stopServices];
+}
+
+- (void)testPersistingObservedObject {
+    [self.server inspectValueForKeyPath:@"observedValue" ofObject:self
+                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+                             identifier:@"observedValue" context:nil];
+    
+    NSData *persistedObject = [self.server performSelector:@selector(_persistObjectWithIdentifier:) withObject:@"observedValue"];
+    XCTAssertNotNil(persistedObject, AKCBFORMAT(@"Persisted data should not be nil"));
+    
+    NSDictionary *unpersistedObject = [AKCBKeyValueStoreUtils deserialize:persistedObject];
+    XCTAssertEqualObjects([unpersistedObject objectForKey:@"id"], @"observedValue", AKCBFORMAT(@"Persisted data has wrong id"));
+    XCTAssertEqualObjects([unpersistedObject objectForKey:@"keyPath"], @"observedValue", AKCBFORMAT(@"Persisted data has wrong keyPath"));
+    XCTAssertEqual([[unpersistedObject objectForKey:@"value"] boolValue], NO, AKCBFORMAT(@"Persisted data has wrong value"));
+    XCTAssertEqual([unpersistedObject objectForKey:@"context"], [NSNull null], AKCBFORMAT(@"Persisted data has wrong context"));
+    XCTAssertEqualObjects([unpersistedObject objectForKey:@"server"], @"Test Server", AKCBFORMAT(@"Persisted data has wrong server"));
+    
+    [self.server stopServices];
+
 }
 
 @end
