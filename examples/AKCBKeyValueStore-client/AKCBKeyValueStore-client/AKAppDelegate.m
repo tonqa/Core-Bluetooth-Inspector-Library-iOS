@@ -8,15 +8,11 @@
 
 #import "AKAppDelegate.h"
 
-#import <AKCBKeyValueStore/AKCBKeyValueStore.h>
-
 @implementation AKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
-    NSLog(@"%@", [AKCBKeyValueStore helloWorld]);
 
     return YES;
 }

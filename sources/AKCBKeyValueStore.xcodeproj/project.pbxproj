@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		111C21D4180926560015EC85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111C21D3180926560015EC85 /* Foundation.framework */; };
 		111C21D9180926560015EC85 /* AKCBKeyValueStore.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 111C21D8180926560015EC85 /* AKCBKeyValueStore.h */; };
-		111C21DB180926560015EC85 /* AKCBKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C21DA180926560015EC85 /* AKCBKeyValueStore.m */; };
 		111C21E2180926560015EC85 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111C21E1180926560015EC85 /* XCTest.framework */; };
 		111C21E3180926560015EC85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111C21D3180926560015EC85 /* Foundation.framework */; };
 		111C21E5180926560015EC85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111C21E4180926560015EC85 /* UIKit.framework */; };
@@ -64,7 +63,6 @@
 		111C21D3180926560015EC85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		111C21D7180926560015EC85 /* AKCBKeyValueStore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AKCBKeyValueStore-Prefix.pch"; sourceTree = "<group>"; };
 		111C21D8180926560015EC85 /* AKCBKeyValueStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStore.h; sourceTree = "<group>"; };
-		111C21DA180926560015EC85 /* AKCBKeyValueStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStore.m; sourceTree = "<group>"; };
 		111C21E0180926560015EC85 /* AKCBKeyValueStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKCBKeyValueStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		111C21E1180926560015EC85 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		111C21E4180926560015EC85 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -148,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				111C21D8180926560015EC85 /* AKCBKeyValueStore.h */,
-				111C21DA180926560015EC85 /* AKCBKeyValueStore.m */,
 				1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */,
 				1173046C18097DAB0016404F /* AKCBKeyValueStoreServer.h */,
 				1173046D18097DAB0016404F /* AKCBKeyValueStoreServer.m */,
@@ -326,7 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1173047D1809A0B90016404F /* AKCBKeyValueStoreUtils.m in Sources */,
-				111C21DB180926560015EC85 /* AKCBKeyValueStore.m in Sources */,
 				1173047318097DC70016404F /* AKCBKeyValueStoreClient.m in Sources */,
 				1173046F18097DAB0016404F /* AKCBKeyValueStoreServer.m in Sources */,
 			);
