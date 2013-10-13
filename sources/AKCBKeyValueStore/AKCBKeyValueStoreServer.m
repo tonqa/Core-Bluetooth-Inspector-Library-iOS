@@ -172,7 +172,24 @@
 # pragma mark - Key Value Observing
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    AKCBLOG(@"TEEEEEEEST");
+}
+
+# pragma mark - Other methods
+
+- (id)_valueForIdentifier:(NSString *)identifier {
+    NSDictionary *inspectedObjectDict = [self.inspectedObjects objectForKey:identifier];
+    NSString *object = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_OBJECT];
+    NSString *keyPath = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH];
+    
+    return [object valueForKeyPath:keyPath];
+}
+
+- (void)_setValue:(id)value forIdentifier:(NSString *)identifier {
+    NSDictionary *inspectedObjectDict = [self.inspectedObjects objectForKey:identifier];
+    NSString *object = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_OBJECT];
+    NSString *keyPath = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH];
+    
+    [object setValue:value forKeyPath:keyPath];
 }
 
 @end

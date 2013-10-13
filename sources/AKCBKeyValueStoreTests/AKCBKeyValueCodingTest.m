@@ -25,6 +25,7 @@
 {
     [super setUp];
 
+    self.observedValue = NO;
     self.server = [[AKCBKeyValueStoreServer alloc] initWithName:@"Test Server"];
 }
 
@@ -51,19 +52,34 @@
     XCTAssertEqualObjects([inspectedObject objectForKey:@"context"], [NSNull null], AKCBFORMAT(@"Inspected object's context is wrong"));
     XCTAssertEqualObjects([inspectedObject objectForKey:@"identifier"], @"observedValue", AKCBFORMAT(@"Inspected object's identifier is wrong"));
 
+    [self.server stopServices];
 }
 
 - (void)testObservingValues {
     id serverMock = [OCMockObject partialMockForObject:self.server];
+    [[serverMock expect] observeValueForKeyPath:[OCMArg any] ofObject:[OCMArg any] change:[OCMArg any] context:nil];
     [serverMock inspectValueForKeyPath:@"observedValue" ofObject:self
                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
                             identifier:@"observedValue" context:nil];
-
-    [[serverMock expect] observeValueForKeyPath:[OCMArg any] ofObject:[OCMArg any] change:[OCMArg any] context:nil];
     
     self.observedValue = YES;
     
     [serverMock verify];
+    [serverMock stopServices];
+}
+
+- (void)testReadWriteValuesForKeyPathes {
+    [self.server inspectValueForKeyPath:@"observedValue" ofObject:self
+                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+                             identifier:@"observedValue" context:nil];
+    
+    [self.server performSelector:@selector(_setValue:forIdentifier:) withObject:@(YES) withObject:@"observedValue"];
+    XCTAssertEqual(self.observedValue, YES, AKCBFORMAT(@"Observed Value must be read and changed"));
+
+    NSNumber *value = [self.server performSelector:@selector(_valueForIdentifier:) withObject:@"observedValue"];
+    XCTAssertEqual(self.observedValue, [value boolValue], AKCBFORMAT(@"Observed Value must be read and changed"));
+    
+    [self.server stopServices];
 }
 
 @end
