@@ -7,6 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
+
 
 @interface AKCBKeyValueStoreTests : XCTestCase
 
@@ -28,7 +30,7 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    XCTAssert(YES, @"Tests can be started for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

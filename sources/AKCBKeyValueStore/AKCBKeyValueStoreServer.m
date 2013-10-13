@@ -10,15 +10,21 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
 
+#define AKCB_INSPECTION_KEY_KEYPATH @"keyPath"
+#define AKCB_INSPECTION_KEY_OBJECT @"object"
+#define AKCB_INSPECTION_KEY_CONTEXT @"context"
+#define AKCB_INSPECTION_KEY_IDENTIFIER @"identifier"
+
 @interface AKCBKeyValueStoreServer ()
 
+@property (nonatomic, strong) NSMutableDictionary *inspectedObjects;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBUUID *serviceUDID;
 @property (nonatomic, strong) CBUUID *readCharacteristicUDID;
 @property (nonatomic, strong) CBUUID *writeCharacteristicUDID;
 @property (nonatomic, strong) CBUUID *createCharacteristicUDID;
 @property (nonatomic, strong) CBUUID *deleteCharacteristicUDID;
-@property (nonatomic, copy) NSString *serviceName;
+@property (nonatomic, copy) NSString *serverName;
 
 @end
 
@@ -27,23 +33,57 @@
 
 # pragma mark - public methods
 
-- (void)startServiceWithName:(NSString *)serviceName {
-    self.serviceName = serviceName;
+- (id)initWithName:(NSString *)serverName {
+    self = [super init];
+    if (self) {
+        self.serverName = serverName;
+        self.inspectedObjects = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [self stopServices];
+}
+
+- (void)inspectValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                       options:(NSKeyValueObservingOptions)options
+                    identifier:(NSString *)identifier
+                       context:(id)context {
+    
+    [self.inspectedObjects setObject:@{
+                       AKCB_INSPECTION_KEY_KEYPATH: keyPath,
+                       AKCB_INSPECTION_KEY_OBJECT: object,
+                       AKCB_INSPECTION_KEY_IDENTIFIER: identifier,
+                       AKCB_INSPECTION_KEY_CONTEXT: (context ?: [NSNull null])
+                       } forKey:identifier];
+    
+    [object addObserver:self forKeyPath:keyPath options:options context:nil];
+}
+
+- (void)startServices {
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
 }
 
-- (void)stopService {
+- (void)stopServices {
+    for (NSDictionary *inspectedObjectDict in [self.inspectedObjects allValues]) {
+        NSObject *observedObject = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_OBJECT];
+        [observedObject removeObserver:self forKeyPath:[inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH]];
+    }
+    
+    self.inspectedObjects = nil;
     self.peripheralManager = nil;
     self.serviceUDID = nil;
-    self.serviceName = nil;
+    self.serverName = nil;
 }
 
-- (void)continueService {
+- (void)continueServices {
     NSDictionary *advertisingData = @{CBAdvertisementDataServiceUUIDsKey : @[self.serviceUDID]};
     [self.peripheralManager startAdvertising:advertisingData];
 }
 
-- (void)pauseService {
+- (void)pauseServices {
     [self.peripheralManager stopAdvertising];
 }
 
@@ -82,7 +122,7 @@
                     error:(NSError *)error {
     
     [peripheral startAdvertising:@{
-               CBAdvertisementDataLocalNameKey:self.serviceName,
+               CBAdvertisementDataLocalNameKey:self.serverName,
                CBAdvertisementDataServiceUUIDsKey:@[self.serviceUDID]
                }];
 }
@@ -127,6 +167,12 @@
 
 - (NSData *)_emptyObject {
     return [AKCBKeyValueStoreUtils serialize:@{}];
+}
+
+# pragma mark - Key Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    AKCBLOG(@"TEEEEEEEST");
 }
 
 @end

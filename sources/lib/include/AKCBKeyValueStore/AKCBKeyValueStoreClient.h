@@ -10,57 +10,46 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
 
+
+@protocol AKCBKeyValueStoreClientDelegate <NSObject>
+
+- (void)observedChangeAtKeyPath:(NSString *)keyPath
+                          value:(id)value
+                     identifier:(NSString *)identifier
+                        context:(id)context;
+
+@end
+
+
 @interface AKCBKeyValueStoreClient : NSObject
 
 /**
- * All properties of the connected KeyValueStore Server.
+ * This is the delegate that gets informed for changes.
+ */
+@property (nonatomic, weak) id<AKCBKeyValueStoreClientDelegate> delegate;
+
+/**
+ * All properties of the connected AKCBServer.
  */
 @property (nonatomic, retain) NSDictionary *connectedServer;
 
 /**
- * Fetch a list of all currently reachable servers.
+ * Fetches all services which offer value observation.
  */
-- (void)fetchListOfServersWithServiceName:(NSString *)serviceName
-                               completion:(AKHandlerWithResult)completion;
+- (void)findAllValueServices:(AKHandlerWithResult)completion;
 
 /**
- * Connect to a Bluetooth LE service, which should be able
- * to handle the AKCBKeyValueStore protocol.
+ * Fetches the value data with an ID.
  */
-- (void)connectToServiceWithUUID:(NSString *)serviceUUID;
+- (void)readValueWithID:(NSString *)identifier
+             completion:(AKHandlerWithResult)completion;
 
 /**
- * Fetches all UUIDs of stored objects.
- */
-- (void)getAllObjectUUIDs:(AKHandlerWithResult)completion;
-
-/**
- * Fetches the object data with an object UUID.
- */
-- (void)getObjectWithUUID:(NSString *)uuid
-               completion:(AKHandlerWithResult)completion;
-
-/**
- * Deletes an entry with a given UUID. An error can occur if
- * either the connection is broken or the value does not exist.
- */
-- (void)deleteObjectWithUUID:(NSString *)uuid
-                  completion:(AKHandlerWithoutResult)completion;
-
-/**
- * Creates an object and returns an UUID, which
- * can be saved locally to
- */
-- (void)createObjectWithUUID:(NSString *)uuid
-                  completion:(AKHandlerWithoutResult)completion;
-
-
-/**
- * Save a value to the AKCBKeyValueStore, which we are currently
+ * Save a value to the AKCBServer, which we are currently
  * connected to. This operation could fail, which results in an
  * error given to the completion block.
  */
-- (void)setValue:(NSData *)value forObjectUUID:(NSString *)uuid
-      completion:(AKHandlerWithoutResult)completion;
+- (void)writeValue:(id)value withID:(NSString *)identifier
+        completion:(AKHandlerWithoutResult)completion;
 
 @end

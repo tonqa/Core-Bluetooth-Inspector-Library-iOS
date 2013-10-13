@@ -28,6 +28,8 @@
 		1173047818097FD00016404F /* AKCBKeyValueStoreClient.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1173047018097DC70016404F /* AKCBKeyValueStoreClient.h */; };
 		1173047C1809A0B90016404F /* AKCBKeyValueStoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1173047A1809A0B90016404F /* AKCBKeyValueStoreUtils.h */; };
 		1173047D1809A0B90016404F /* AKCBKeyValueStoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1173047B1809A0B90016404F /* AKCBKeyValueStoreUtils.m */; };
+		11F2A65F180A778200CF9C4E /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F2A657180A778200CF9C4E /* libOCMock.a */; };
+		11F2A661180A7B3A00CF9C4E /* AKCBKeyValueCodingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F2A660180A7B3A00CF9C4E /* AKCBKeyValueCodingTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,14 @@
 		1173047418097E1D0016404F /* AKCBKeyValueStoreConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStoreConstants.h; sourceTree = "<group>"; };
 		1173047A1809A0B90016404F /* AKCBKeyValueStoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCBKeyValueStoreUtils.h; sourceTree = "<group>"; };
 		1173047B1809A0B90016404F /* AKCBKeyValueStoreUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueStoreUtils.m; sourceTree = "<group>"; };
+		11F2A657180A778200CF9C4E /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		11F2A659180A778200CF9C4E /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		11F2A65A180A778200CF9C4E /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		11F2A65B180A778200CF9C4E /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		11F2A65C180A778200CF9C4E /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		11F2A65D180A778200CF9C4E /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		11F2A65E180A778200CF9C4E /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		11F2A660180A7B3A00CF9C4E /* AKCBKeyValueCodingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCBKeyValueCodingTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,7 @@
 				111C21E2180926560015EC85 /* XCTest.framework in Frameworks */,
 				111C21E5180926560015EC85 /* UIKit.framework in Frameworks */,
 				111C21E3180926560015EC85 /* Foundation.framework in Frameworks */,
+				11F2A65F180A778200CF9C4E /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				111C21EF180926560015EC85 /* AKCBKeyValueStoreTests.m */,
+				11F2A660180A7B3A00CF9C4E /* AKCBKeyValueCodingTest.m */,
+				11F2A656180A778200CF9C4E /* testframeworks */,
 				111C21EA180926560015EC85 /* Supporting Files */,
 			);
 			path = AKCBKeyValueStoreTests;
@@ -174,6 +187,28 @@
 				111C21EC180926560015EC85 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11F2A656180A778200CF9C4E /* testframeworks */ = {
+			isa = PBXGroup;
+			children = (
+				11F2A657180A778200CF9C4E /* libOCMock.a */,
+				11F2A658180A778200CF9C4E /* OCMock */,
+			);
+			path = testframeworks;
+			sourceTree = "<group>";
+		};
+		11F2A658180A778200CF9C4E /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				11F2A659180A778200CF9C4E /* NSNotificationCenter+OCMAdditions.h */,
+				11F2A65A180A778200CF9C4E /* OCMArg.h */,
+				11F2A65B180A778200CF9C4E /* OCMConstraint.h */,
+				11F2A65C180A778200CF9C4E /* OCMock.h */,
+				11F2A65D180A778200CF9C4E /* OCMockObject.h */,
+				11F2A65E180A778200CF9C4E /* OCMockRecorder.h */,
+			);
+			path = OCMock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F2A661180A7B3A00CF9C4E /* AKCBKeyValueCodingTest.m in Sources */,
 				111C21F0180926560015EC85 /* AKCBKeyValueStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +472,23 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AKCBKeyValueStoreTests/testframeworks\"",
+				);
 				INFOPLIST_FILE = "AKCBKeyValueStoreTests/AKCBKeyValueStoreTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Alexander/Development/AKCBKeyValueStore/repo/sources/AKCBKeyValueStoreTests/testframeworks,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+					"-force_load",
+					"\"$(SRCROOT)/AKCBKeyValueStoreTests/testframeworks/libOCMock.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -453,7 +505,23 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AKCBKeyValueStore/AKCBKeyValueStore-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AKCBKeyValueStoreTests/testframeworks\"",
+				);
 				INFOPLIST_FILE = "AKCBKeyValueStoreTests/AKCBKeyValueStoreTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Alexander/Development/AKCBKeyValueStore/repo/sources/AKCBKeyValueStoreTests/testframeworks,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+					"-force_load",
+					"\"$(SRCROOT)/AKCBKeyValueStoreTests/testframeworks/libOCMock.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
