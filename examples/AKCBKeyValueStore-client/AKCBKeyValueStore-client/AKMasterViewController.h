@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AKMasterViewController : UITableViewController
+#import <AKCBKeyValueStore/AKCBKeyValueStoreClient.h>
+
+@interface AKMasterViewController : UITableViewController <AKCBKeyValueStoreClientDelegate>
 
 @end

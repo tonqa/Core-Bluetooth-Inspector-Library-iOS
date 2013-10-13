@@ -75,13 +75,22 @@
 
 - (void)continueServices {
     NSMutableArray *serviceUUIDs = [NSMutableArray array];
+    NSMutableDictionary *serviceUUIDsToServerName = [NSMutableDictionary dictionary];
     for (CBMutableService *service in self.services) {
+        NSDictionary *serviceInfoDict = [self _infoDictByServiceUuid: service.UUID];
+        NSString *identifier = [serviceInfoDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
+        
         [serviceUUIDs addObject:service.UUID];
+        [serviceUUIDsToServerName setObject:@{
+                  AKCB_SENT_KEY_SERVER: self.serverName,
+                  AKCB_INSPECTION_KEY_IDENTIFIER: identifier
+                  } forKey:service.UUID];
     }
     
     [self.peripheralManager startAdvertising:@{
                                                CBAdvertisementDataLocalNameKey:self.serverName,
-                                               CBAdvertisementDataServiceUUIDsKey:serviceUUIDs
+                                               CBAdvertisementDataServiceUUIDsKey:serviceUUIDs,
+                                               CBAdvertisementDataServiceDataKey:serviceUUIDsToServerName
                                                }];
 }
 

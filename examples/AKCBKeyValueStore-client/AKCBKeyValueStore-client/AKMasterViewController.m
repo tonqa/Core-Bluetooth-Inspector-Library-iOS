@@ -14,7 +14,7 @@
     NSMutableArray *_objects;
 }
 
-@property (nonatomic, retain) AKCBKeyValueStoreServer *server;
+@property (nonatomic, retain) AKCBKeyValueStoreClient *client;
 
 @end
 
@@ -33,6 +33,16 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.client = [[AKCBKeyValueStoreClient alloc] initWithServerName:@"Test Server"];
+    self.client.delegate = self;
+    __weak AKMasterViewController *this = self;
+    
+    [this.client findPeripherals:^(CBPeripheral *peripheral , NSError *error) {
+        if (!error) {
+            [this.client connectToPeripheral:peripheral completion:NULL];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,5 +122,16 @@
         [[segue destinationViewController] setDetailItem:object];
     }
 }
+
+# pragma mark - AKCBKeyValueStoreClientDelegate
+
+- (void)observedChangeAtKeyPath:(NSString *)keyPath
+                          value:(id)value
+                     identifier:(NSString *)identifier
+                        context:(id)context {
+    
+    NSLog(@"YEEHA. Observed change of ID '%@' at keyPath '%@' with value '%@'", identifier, keyPath, value);
+}
+
 
 @end

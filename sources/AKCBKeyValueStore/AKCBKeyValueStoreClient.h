@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
 
@@ -25,7 +26,7 @@
 @end
 
 
-@interface AKCBKeyValueStoreClient : NSObject
+@interface AKCBKeyValueStoreClient : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 /**
  * This is the delegate that gets informed for changes.
@@ -33,20 +34,25 @@
 @property (nonatomic, weak) id<AKCBKeyValueStoreClientDelegate> delegate;
 
 /**
- * All properties of the connected AKCBServer.
+ * Initializes the client to a server with a chosen name.
  */
-@property (nonatomic, retain) NSDictionary *connectedServer;
+- (id)initWithServerName:(NSString *)serverName;
 
 /**
- * Fetches all services which offer value observation.
+ * Fetches all peripherals which offer value observation.
  */
-- (void)findAllValueServices:(AKHandlerWithResult)completion;
+- (void)findPeripherals:(AKHandlerWithResult)completion;
+
+/**
+ * Connects to a specific peripheral
+ */
+- (void)connectToPeripheral:(CBPeripheral *)peripheral completion:(AKHandlerWithoutResult)completion;
 
 /**
  * Fetches the value data with an ID.
  */
-- (void)readValueWithID:(NSString *)identifier
-             completion:(AKHandlerWithResult)completion;
+- (void)readValueWithIdentifier:(NSString *)identifier
+                 completion:(AKHandlerWithResult)completion;
 
 /**
  * Save a value to the AKCBServer, which we are currently
@@ -56,7 +62,7 @@
  * This operation could fail, which results in an
  * error given to the completion block.
  */
-- (void)writeValue:(id<NSCopying>)value withID:(NSString *)identifier
+- (void)writeValue:(id<NSCopying>)value withIdentifier:(NSString *)identifier
         completion:(AKHandlerWithoutResult)completion;
 
 @end
