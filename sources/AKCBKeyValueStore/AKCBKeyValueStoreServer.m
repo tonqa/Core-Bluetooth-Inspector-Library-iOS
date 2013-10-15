@@ -39,7 +39,7 @@
 }
 
 - (void)dealloc {
-    [self stopServices];
+    [self stop];
 }
 
 - (void)inspectValueForKeyPath:(NSString *)keyPath
@@ -62,11 +62,11 @@
     [object addObserver:self forKeyPath:keyPath options:kvcOptions context:nil];
 }
 
-- (void)startServices {
+- (void)start {
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
 }
 
-- (void)stopServices {
+- (void)stop {
     for (NSDictionary *inspectedObjectDict in [self.inspectedObjects allValues]) {
         NSObject *observedObject = [inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_OBJECT];
         [observedObject removeObserver:self forKeyPath:[inspectedObjectDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH]];
@@ -77,7 +77,7 @@
     self.services = nil;
 }
 
-- (void)continueServices {
+- (void)resume {
     NSMutableArray *serviceUUIDs = [NSMutableArray array];
     for (CBMutableService *service in self.services) {
         [serviceUUIDs addObject:service.UUID];
@@ -89,7 +89,7 @@
                                                }];
 }
 
-- (void)pauseServices {
+- (void)pause {
     [self.peripheralManager stopAdvertising];
 }
 
@@ -150,7 +150,7 @@
             didAddService:(CBService *)service
                     error:(NSError *)error {
     
-    [self continueServices];
+    [self resume];
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager

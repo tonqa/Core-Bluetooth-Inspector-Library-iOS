@@ -239,8 +239,8 @@ NSString *kTimeServiceUUIDString = @"1805";
         [self.foundIdentifiersToServiceUUIDs setObject:characteristic.service.UUID forKey:identifier];
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(observedChangeAtKeyPath:value:identifier:context:)]) {
-        [self.delegate observedChangeAtKeyPath:keyPath value:value identifier:identifier context:context];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(observerObservedChange:keyPath:value:identifier:context:)]) {
+        [self.delegate observerObservedChange:self keyPath:keyPath value:value identifier:identifier context:context];
     }
     
 }

@@ -128,13 +128,14 @@
 
 # pragma mark - AKCBKeyValueStoreClientDelegate
 
-- (void)observedChangeAtKeyPath:(NSString *)keyPath
-                          value:(id)value
-                     identifier:(NSString *)identifier
-                        context:(id)context {
-
+- (void)observerObservedChange:(AKCBKeyValueStoreClient *)observer
+                       keyPath:(NSString *)keyPath
+                         value:(id)value
+                    identifier:(NSString *)identifier
+                       context:(id)context {
+    
     NSLog(@"YEEHA. Observed change of ID '%@' at keyPath '%@' with value '%@'", identifier, keyPath, value);
-}
 
+}
 
 @end

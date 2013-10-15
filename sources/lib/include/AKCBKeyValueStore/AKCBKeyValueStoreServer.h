@@ -36,23 +36,23 @@
  * This starts a AKCBKeyValueStore service, where
  * clients can connect to.
  */
-- (void)startServices;
+- (void)start;
 
 /**
  * This stops the current service.
  */
-- (void)stopServices;
+- (void)stop;
 
 /**
  * This continues a paused service, which should be done
  * when waking up from the background.
  */
-- (void)continueServices;
+- (void)resume;
 
 /**
  * This pauses a running service, which should be done
  * when going to the background.
  */
-- (void)pauseServices;
+- (void)pause;
 
 @end

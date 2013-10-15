@@ -23,6 +23,7 @@ Here the code to do just that:
     	self.inspector = [[AKCBInspector alloc] initWithName:@"Test Server"];
 	    [self.inspector inspectValueForKeyPath:@"observedValue"
     	                              ofObject:self
+                                     options:(AKCB_READ|AKCB_WRITE|AKCB_NOTIFY)
         	                        identifier:@"observedValue"
             	                       context:nil];
 	    [self.inspector start];
@@ -50,8 +51,11 @@ Here the code to do just that (without error handling for better reading):
 	    AKCBObserver *observer = [[AKCBObserver alloc] initWithServerName:@"Test Server"];
     	observer.delegate = self;
 
-	    [observer findInspectors:^(AKCBInspector *inspector , NSError *error) {
-	        [observer connectToInspector:inspector completion:NULL];
+	    [observer discoverPeripherals:^(CBPeripheral *peripheral , NSError *error) {
+          [observer stopDiscovery];
+	        [observer connectToPeripheral:peripheral  completion:^(NSArray *identifiers, NSError *error) {
+            NSLog(@"You are connected, here you can start your reading & writing");
+          }];
 	    }];
 	}
 
@@ -91,5 +95,6 @@ It is easily possible to have multiple Inspectors (in many Apps on multiple devi
 
 ## TODOs
 
-   * Rename project & classes & repo
-   * Error Handling, Mac Support, Make iOS Apps, Make screencast
+   * Error Handling
+   * Add Mac Support
+   * Create interface for example Apps

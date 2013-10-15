@@ -45,7 +45,7 @@
     self.server = [[AKCBKeyValueStoreServer alloc] initWithName:@"Test Server"];
     [self.server inspectValueForKeyPath:@"observedValue" ofObject:self identifier:@"observedValue"
                                 options:(AKCB_READ|AKCB_WRITE|AKCB_NOTIFY) context:nil];
-    [self.server startServices];
+    [self.server start];
     
     [self performSelector:@selector(changeLoop) withObject:nil afterDelay:20];
 

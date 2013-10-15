@@ -11,6 +11,7 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
 
+@class AKCBKeyValueStoreClient;
 
 @protocol AKCBKeyValueStoreClientDelegate <NSObject>
 
@@ -18,7 +19,8 @@
  * This is called when an observed value was changed
  * on the server side.
  */
-- (void)observedChangeAtKeyPath:(NSString *)keyPath
+- (void)observerObservedChange:(AKCBKeyValueStoreClient *)observer
+                       keyPath:(NSString *)keyPath
                           value:(id)value
                      identifier:(NSString *)identifier
                         context:(id)context;
