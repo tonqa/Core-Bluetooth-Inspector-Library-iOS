@@ -14,7 +14,7 @@ Make your iOS or Mac App discoverable via Bluetooth with three easy steps:
 
 Here the code to do just that:
 
-  #import <AKCBInspection/AKCBInspection.h>
+  #import &lt;AKCBInspection/AKCBInspection.h&gt;
 
 	@property (nonatomic, assign) BOOL observedValue;
 	@property (nonatomic, retain) AKCBInspector *inspector;
@@ -46,7 +46,7 @@ Of course, you can also write an own iOS or Mac app observing and changing the i
 
 Here the code to do just that (without error handling for better reading):
 
-  #import <AKCBInspection/AKCBInspection.h>
+  #import &lt;AKCBInspection/AKCBInspection.h&gt;
 
 	@property (nonatomic, retain) AKCBObserver *observer;
 
