@@ -10,15 +10,21 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
 
+NSString *kBatteryServiceUUIDString = @"180F";
+NSString *kAlertServiceUUIDString = @"1802";
+NSString *kTimeServiceUUIDString = @"1805";
+
 @interface AKCBKeyValueStoreClient ()
 
 @property (nonatomic, copy) NSString *serverName;
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) NSMutableArray *subscribedServiceUUIDs;
+@property (nonatomic, strong) NSMutableArray *discoveredServiceUUIDs;
 @property (nonatomic, retain) NSMutableDictionary *foundIdentifiersToServiceUUIDs;
 
 @property (nonatomic, copy) AKHandlerWithResult findPeripheralsBlock;
-@property (nonatomic, copy) AKHandlerWithoutResult connectPeripheralBlock;
+@property (nonatomic, copy) AKHandlerWithResult connectPeripheralBlock;
 @property (nonatomic, copy) AKHandlerWithResult readValueBlock;
 @property (nonatomic, copy) AKHandlerWithoutResult writeValueBlock;
 
@@ -30,17 +36,24 @@
     self = [super init];
     if (self) {
         self.serverName = serverName;
+        self.subscribedServiceUUIDs = [NSMutableArray array];
+        self.discoveredServiceUUIDs = [NSMutableArray array];
         self.foundIdentifiersToServiceUUIDs = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-- (void)findPeripherals:(AKHandlerWithResult)completion {
+- (void)discoverPeripherals:(AKHandlerWithResult)completion {
     self.findPeripheralsBlock = completion;
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 }
 
-- (void)connectToPeripheral:(CBPeripheral *)peripheral completion:(AKHandlerWithoutResult)completion {
+- (void)stopDiscovery {
+    [self.centralManager stopScan];
+    self.findPeripheralsBlock = nil;
+}
+
+- (void)connectToPeripheral:(CBPeripheral *)peripheral completion:(AKHandlerWithResult)completion {
     self.connectPeripheralBlock = completion;
     [self.centralManager connectPeripheral:peripheral options:nil];
 }
@@ -76,12 +89,12 @@
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central{
     switch (central.state) {
         case CBCentralManagerStatePoweredOn:
+            AKCBLOG(@"Did update state");
             [self.centralManager scanForPeripheralsWithServices:nil options:@{
                   CBCentralManagerScanOptionAllowDuplicatesKey : [NSNumber numberWithBool:YES]
             }]; break;
             
         default:
-            NSLog(@"%i",central.state);
             break;
     }
 }
@@ -92,90 +105,148 @@
                    RSSI:(NSNumber *)RSSI {
     
     if ([RSSI floatValue] >= -45.f) {
-        NSDictionary *advertisedServices = [advertisementData objectForKey:CBAdvertisementDataServiceDataKey];
+    
+        NSString *serverName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
         
-        for (NSString *serviceUuid in advertisedServices) {
-            NSDictionary *serviceDict = advertisedServices[serviceUuid];
-            NSString *serviceIdentifier = [serviceDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
-            NSString *serverName = [serviceDict objectForKey:AKCB_SENT_KEY_SERVER];
-            if ([serverName isEqualToString:self.serverName]) {
-                [self.foundIdentifiersToServiceUUIDs setObject:serviceUuid forKey:serviceIdentifier];
-            }
-        }
-        
-        if ([self.foundIdentifiersToServiceUUIDs count] > 0) {
-            [central stopScan];
+        if ([serverName isEqualToString:self.serverName]) {
+            AKCBLOG(@"Did found IDs and service UUIDs");
             self.peripheral = peripheral;
             if (self.findPeripheralsBlock) self.findPeripheralsBlock(peripheral, nil);
-            self.findPeripheralsBlock = nil;
         }
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    NSLog(@"Failed:%@",error);
+
+    if (error) NSLog(@"ERROR: %@", error);
+    
 }
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)aPeripheral {
-    NSLog(@"Connected");
     [self.peripheral setDelegate:self];
-    [self.peripheral discoverServices:[self.foundIdentifiersToServiceUUIDs allValues]];
-    
-    if (self.connectPeripheralBlock) self.connectPeripheralBlock(nil);
-    self.connectPeripheralBlock = nil;
+    [self.peripheral discoverServices:nil];
 }
 
+
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
-    
+
+    if (error) NSLog(@"ERROR: %@", error);
+
     for (CBService *service in peripheral.services){
-        [peripheral discoverCharacteristics:nil forService:service];
+        
+        if (![self _isDefaultServiceUUID:service.UUID]) {
+            
+            [self.subscribedServiceUUIDs addObject:service];
+            
+            [peripheral discoverCharacteristics:nil forService:service];
+        }
     }
     
 }
 
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+
+    if (error) NSLog(@"ERROR: %@", error);
+    
     for (CBCharacteristic *characteristic in service.characteristics){
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"0002"]]) {
-            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+        
+        NSLog(@"Did find: service %s // characteristic %s",
+                                                    [self CBUUIDToCString:service.UUID],
+                                                    [self CBUUIDToCString:characteristic.UUID]);
+
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"0000"]]) {
+            
+            [peripheral readValueForCharacteristic:characteristic];
+            
         }
     }
 }
 
-// read
+/* callback for read */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
              error:(NSError *)error {
     
+    if (error) NSLog(@"ERROR: %@", error);
+
     NSDictionary *notifiedDict = [AKCBKeyValueStoreUtils deserialize:characteristic.value];
+    NSString *identifier = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
     id value = [notifiedDict objectForKey:AKCB_SENT_KEY_VALUE];
     
-    if (self.readValueBlock) self.readValueBlock(value, nil);
-    self.readValueBlock = nil;
+    if ([self.foundIdentifiersToServiceUUIDs objectForKey:identifier] == nil) {
+        [self.foundIdentifiersToServiceUUIDs setObject:characteristic.service.UUID forKey:identifier];
+    }
+
+    // add service as discovered and return connect callback
+    if (![self.discoveredServiceUUIDs containsObject:characteristic.service.UUID]) {
+        [self.discoveredServiceUUIDs addObject:characteristic.service.UUID];
+        
+        if ([self.subscribedServiceUUIDs count] == [self.discoveredServiceUUIDs count]) {
+            
+            NSLog(@"Connection success");
+
+            if (self.connectPeripheralBlock) self.connectPeripheralBlock([self.foundIdentifiersToServiceUUIDs allKeys], nil);
+            self.connectPeripheralBlock = nil;
+            
+            for (CBService *service in self.peripheral.services) {
+                if (![self _isDefaultServiceUUID:service.UUID]) {
+                    for (CBCharacteristic *serviceCharacteristic in service.characteristics) {
+                        if ([self _isNotifyCharacteristicUUID:serviceCharacteristic.UUID]) {
+                            NSLog(@"Subscribing to notify characteristic of service %s", [self CBUUIDToCString:service.UUID]);
+                            [peripheral setNotifyValue:YES forCharacteristic:serviceCharacteristic];
+                        }
+                    }
+                }
+            }
+
+        }
+    } else {
+        if (self.readValueBlock) self.readValueBlock(value, nil);
+        self.readValueBlock = nil;
+    }
+    
     //[self.centralManager cancelPeripheralConnection:aPeripheral];
 }
 
-// write
+
+/* callback for write */
 - (void)peripheral:(CBPeripheral *)aPeripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic
              error:(NSError *)error {
+    
+    if (error) NSLog(@"ERROR: %@", error);
     
     if (self.writeValueBlock) self.writeValueBlock(nil);
     self.writeValueBlock = nil;
     //[self.centralManager cancelPeripheralConnection:aPeripheral];
 }
 
-// notify
+
+/* callback for notify */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic
              error:(NSError *)error {
+
+    if (error) NSLog(@"ERROR: %@", error);
+
+    // this happens sometimes out of reason, so check..
+    if (!characteristic.value) NSLog(@"ERROR: Characteristic has no value"); return;
     
     NSDictionary *notifiedDict = [AKCBKeyValueStoreUtils deserialize:characteristic.value];
-
     NSString *keyPath = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH];
     NSString *identifier = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
     id context = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_CONTEXT];
     id value = [notifiedDict objectForKey:AKCB_SENT_KEY_VALUE];
     
+    if ([self.foundIdentifiersToServiceUUIDs objectForKey:identifier] == nil) {
+        [self.foundIdentifiersToServiceUUIDs setObject:characteristic.service.UUID forKey:identifier];
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(observedChangeAtKeyPath:value:identifier:context:)]) {
         [self.delegate observedChangeAtKeyPath:keyPath value:value identifier:identifier context:context];
     }
+    
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
+    NSLog(@"ERROR: Services Invalidated on peripheral");
 }
 
 # pragma mark - helpers
@@ -202,6 +273,29 @@
     }
     
     return nil;
+}
+
+- (const char *)CBUUIDToCString:(CBUUID *)UUID {
+    return [[UUID.data description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+}
+
+- (BOOL)_isDefaultServiceUUID:(CBUUID *)UUID {
+    return
+        [UUID isEqual:[CBUUID UUIDWithString:kBatteryServiceUUIDString]] ||
+        [UUID isEqual:[CBUUID UUIDWithString:kAlertServiceUUIDString]] ||
+        [UUID isEqual:[CBUUID UUIDWithString:kTimeServiceUUIDString]];
+}
+
+- (BOOL)_isReadCharacteristicUUID:(CBUUID *)UUID {
+    return [UUID isEqual:[CBUUID UUIDWithString:@"0000"]];
+}
+
+- (BOOL)_isWriteCharacteristicUUID:(CBUUID *)UUID {
+    return [UUID isEqual:[CBUUID UUIDWithString:@"0001"]];
+}
+
+- (BOOL)_isNotifyCharacteristicUUID:(CBUUID *)UUID {
+    return [UUID isEqual:[CBUUID UUIDWithString:@"0002"]];
 }
 
 @end

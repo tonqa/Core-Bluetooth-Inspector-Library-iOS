@@ -19,6 +19,7 @@ typedef void (^AKHandlerWithResult)(id, NSError *);
 #define AKCB_INSPECTION_KEY_OBJECT      @"object"
 #define AKCB_INSPECTION_KEY_CONTEXT     @"context"
 #define AKCB_INSPECTION_KEY_IDENTIFIER  @"identifier"
+#define AKCB_INSPECTION_KEY_OPTIONS     @"options"
 #define AKCB_INSPECTION_KEY_SERVICEUUID @"serviceUUID"
 #define AKCB_INSPECTION_KEY_SERVICE     @"service"
 #define AKCB_INSPECTION_KEY_READCHARACTERISTIC   @"read"
@@ -27,5 +28,9 @@ typedef void (^AKHandlerWithResult)(id, NSError *);
 
 #define AKCB_SENT_KEY_SERVER    @"server"
 #define AKCB_SENT_KEY_VALUE     @"value"
+
+#define AKCB_READ    1
+#define AKCB_WRITE   1 << 1
+#define AKCB_NOTIFY  1 << 2
 
 #endif

@@ -11,8 +11,6 @@
 
 #import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
 
-
-
 @interface AKCBKeyValueStoreServer : NSObject <CBPeripheralManagerDelegate>
 
 /**
@@ -31,6 +29,7 @@
 - (void)inspectValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                     identifier:(NSString *)identifier
+                       options:(NSInteger)options
                        context:(id)context;
 
 /**

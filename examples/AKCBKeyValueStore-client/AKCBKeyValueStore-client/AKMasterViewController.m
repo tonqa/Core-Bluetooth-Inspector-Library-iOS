@@ -36,12 +36,15 @@
     
     self.client = [[AKCBKeyValueStoreClient alloc] initWithServerName:@"Test Server"];
     self.client.delegate = self;
+
     __weak AKMasterViewController *this = self;
-    
-    [this.client findPeripherals:^(CBPeripheral *peripheral , NSError *error) {
-        if (!error) {
-            [this.client connectToPeripheral:peripheral completion:NULL];
-        }
+    [this.client discoverPeripherals:^(CBPeripheral *peripheral , NSError *error) {
+        [this.client stopDiscovery];
+        [this.client connectToPeripheral:peripheral completion:^(NSArray *identifiers, NSError *error) {
+            [this.client readValueWithIdentifier:@"observedValue" completion:^(id value, NSError *error) {
+                NSLog(@"Found %@", value);
+            }];
+        }];
     }];
 }
 
@@ -129,7 +132,7 @@
                           value:(id)value
                      identifier:(NSString *)identifier
                         context:(id)context {
-    
+
     NSLog(@"YEEHA. Observed change of ID '%@' at keyPath '%@' with value '%@'", identifier, keyPath, value);
 }
 

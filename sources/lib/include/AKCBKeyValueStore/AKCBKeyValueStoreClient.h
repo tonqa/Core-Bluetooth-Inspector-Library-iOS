@@ -39,14 +39,19 @@
 - (id)initWithServerName:(NSString *)serverName;
 
 /**
- * Fetches all peripherals which offer value observation.
+ * Is called repeatedly for peripherals which offer value observation.
  */
-- (void)findPeripherals:(AKHandlerWithResult)completion;
+- (void)discoverPeripherals:(AKHandlerWithResult)completion;
+
+/**
+ * Stops the discovery
+ */
+- (void)stopDiscovery;
 
 /**
  * Connects to a specific peripheral
  */
-- (void)connectToPeripheral:(CBPeripheral *)peripheral completion:(AKHandlerWithoutResult)completion;
+- (void)connectToPeripheral:(CBPeripheral *)peripheral completion:(AKHandlerWithResult)completion;
 
 /**
  * Fetches the value data with an ID.

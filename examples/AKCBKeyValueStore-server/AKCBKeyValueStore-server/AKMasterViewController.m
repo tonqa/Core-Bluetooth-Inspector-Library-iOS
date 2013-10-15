@@ -17,6 +17,7 @@
 }
 
 @property (nonatomic, retain) AKCBKeyValueStoreServer *server;
+
 @property (nonatomic, assign) BOOL observedValue;
 
 @end
@@ -40,11 +41,13 @@
 
     self.navigationItem.rightBarButtonItem = addButton;
     
+    // enable inspection here
     self.server = [[AKCBKeyValueStoreServer alloc] initWithName:@"Test Server"];
-    [self.server inspectValueForKeyPath:@"observedValue" ofObject:self identifier:@"observedValue" context:nil];
+    [self.server inspectValueForKeyPath:@"observedValue" ofObject:self identifier:@"observedValue"
+                                options:(AKCB_READ|AKCB_WRITE|AKCB_NOTIFY) context:nil];
     [self.server startServices];
     
-    [self changeLoop];
+    [self performSelector:@selector(changeLoop) withObject:nil afterDelay:20];
 
 }
 

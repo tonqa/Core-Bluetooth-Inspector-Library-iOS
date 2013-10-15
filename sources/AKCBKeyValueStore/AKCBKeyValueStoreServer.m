@@ -45,17 +45,21 @@
 - (void)inspectValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                     identifier:(NSString *)identifier
+                       options:(NSInteger)options
                        context:(id)context {
+    
+    NSAssert(options & AKCB_READ, @"Observed values must at least support reading.");
     
     [self.inspectedObjects setObject:@{
                                        AKCB_INSPECTION_KEY_KEYPATH: keyPath,
                                        AKCB_INSPECTION_KEY_OBJECT: object,
                                        AKCB_INSPECTION_KEY_IDENTIFIER: identifier,
+                                       AKCB_INSPECTION_KEY_OPTIONS: @(options),
                                        AKCB_INSPECTION_KEY_CONTEXT: (context ?: [NSNull null])
                                        } forKey:identifier];
     
-    NSKeyValueObservingOptions options = (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld);
-    [object addObserver:self forKeyPath:keyPath options:options context:nil];
+    NSKeyValueObservingOptions kvcOptions = (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld);
+    [object addObserver:self forKeyPath:keyPath options:kvcOptions context:nil];
 }
 
 - (void)startServices {
@@ -75,22 +79,13 @@
 
 - (void)continueServices {
     NSMutableArray *serviceUUIDs = [NSMutableArray array];
-    NSMutableDictionary *serviceUUIDsToServerName = [NSMutableDictionary dictionary];
     for (CBMutableService *service in self.services) {
-        NSDictionary *serviceInfoDict = [self _infoDictByServiceUuid: service.UUID];
-        NSString *identifier = [serviceInfoDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
-        
         [serviceUUIDs addObject:service.UUID];
-        [serviceUUIDsToServerName setObject:@{
-                  AKCB_SENT_KEY_SERVER: self.serverName,
-                  AKCB_INSPECTION_KEY_IDENTIFIER: identifier
-                  } forKey:service.UUID];
     }
     
     [self.peripheralManager startAdvertising:@{
                                                CBAdvertisementDataLocalNameKey:self.serverName,
                                                CBAdvertisementDataServiceUUIDsKey:serviceUUIDs,
-                                               CBAdvertisementDataServiceDataKey:serviceUUIDsToServerName
                                                }];
 }
 
@@ -106,28 +101,41 @@
             
             for (NSDictionary *inspectedObject in [self.inspectedObjects allValues]) {
                 CBUUID *serviceUUID = [CBUUID UUIDWithString:[AKCBKeyValueStoreUtils getUUID]];
-                
-                self.readCharacteristicUDID = [CBUUID UUIDWithString:@"0000"];
-                self.writeCharacteristicUDID = [CBUUID UUIDWithString:@"0001"];
-                self.notifyCharacteristicUDID = [CBUUID UUIDWithString:@"0002"];
-                
                 CBMutableService *service = [[CBMutableService alloc] initWithType:serviceUUID primary:YES];
-                
-                CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:self.readCharacteristicUDID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
-                CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:self.writeCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
-                CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:self.notifyCharacteristicUDID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
-                
+                NSMutableArray *characteristics = [NSMutableArray array];
+
                 // remember the service identifier inside the inspected object dict
                 NSString *objectIdentifier = [inspectedObject objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
                 NSMutableDictionary *inspectedObjectDictCopy = [inspectedObject mutableCopy];
                 [inspectedObjectDictCopy setObject:serviceUUID forKey:AKCB_INSPECTION_KEY_SERVICEUUID];
                 [inspectedObjectDictCopy setObject:service forKey:AKCB_INSPECTION_KEY_SERVICE];
-                [inspectedObjectDictCopy setObject:characteristic1 forKey:AKCB_INSPECTION_KEY_READCHARACTERISTIC];
-                [inspectedObjectDictCopy setObject:characteristic2 forKey:AKCB_INSPECTION_KEY_WRITECHARACTERISTIC];
-                [inspectedObjectDictCopy setObject:characteristic3 forKey:AKCB_INSPECTION_KEY_NOTIFYCHARACTERISTIC];
-                [self.inspectedObjects setObject:inspectedObjectDictCopy forKey:objectIdentifier];
+
+                // evaluate the options
+                NSInteger options = [[inspectedObject objectForKey:AKCB_INSPECTION_KEY_OPTIONS] intValue];
                 
-                service.characteristics = @[characteristic1, characteristic2, characteristic3];
+                if (options & AKCB_READ) {
+                    self.readCharacteristicUDID = [CBUUID UUIDWithString:@"0000"];
+                    CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:self.readCharacteristicUDID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
+                    [inspectedObjectDictCopy setObject:characteristic1 forKey:AKCB_INSPECTION_KEY_READCHARACTERISTIC];
+                    [characteristics addObject:characteristic1];
+                }
+                
+                if (options & AKCB_WRITE) {
+                    self.writeCharacteristicUDID = [CBUUID UUIDWithString:@"0001"];
+                    CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:self.writeCharacteristicUDID properties:CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
+                    [inspectedObjectDictCopy setObject:characteristic2 forKey:AKCB_INSPECTION_KEY_WRITECHARACTERISTIC];
+                    [characteristics addObject:characteristic2];
+                }
+                
+                if (options & AKCB_NOTIFY) {
+                    self.notifyCharacteristicUDID = [CBUUID UUIDWithString:@"0002"];
+                    CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:self.notifyCharacteristicUDID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
+                    [inspectedObjectDictCopy setObject:characteristic3 forKey:AKCB_INSPECTION_KEY_NOTIFYCHARACTERISTIC];
+                    [characteristics addObject:characteristic3];
+                }
+                
+                [self.inspectedObjects setObject:inspectedObjectDictCopy forKey:objectIdentifier];
+                service.characteristics = characteristics;
                 [peripheralManager addService:service];
             }
             
@@ -158,7 +166,7 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
   didReceiveWriteRequests:(NSArray *)requests {
-    
+
     for (CBATTRequest *request in requests) {
         
         // deserialize sent object
@@ -184,8 +192,8 @@
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager central:(CBCentral *)central
 didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
     
-    NSDictionary *inspectedObjectInfo = [self _infoDictByServiceUuid:characteristic.service.UUID];
-    [self _sendNotificationForInspectedObjectInfo:inspectedObjectInfo];
+//    NSDictionary *inspectedObjectInfo = [self _infoDictByServiceUuid:characteristic.service.UUID];
+//    [self _sendNotificationForInspectedObjectInfo:inspectedObjectInfo];
 }
 
 # pragma mark - Key Value Observing
@@ -280,9 +288,13 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
     NSString *identifier = [inspectedObjectInfo objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
     CBMutableCharacteristic *notifyCharacteristic = [inspectedObjectInfo objectForKey:AKCB_INSPECTION_KEY_NOTIFYCHARACTERISTIC];
     NSData *value = [self _persistInfoDictForIdentifier:identifier];
+    notifyCharacteristic.value = value;
     
-    if (notifyCharacteristic && value) {
-        [self.peripheralManager updateValue:value forCharacteristic:notifyCharacteristic onSubscribedCentrals:nil];
+    if (notifyCharacteristic && value && identifier) {
+        if ([notifyCharacteristic.subscribedCentrals count] > 1) {
+            NSLog(@"Send notification to central");
+            [self.peripheralManager updateValue:value forCharacteristic:notifyCharacteristic onSubscribedCentrals:nil];
+        }
     }
 }
 
