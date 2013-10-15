@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
+#import <AKCBKeyValueStore/AKCBConstants.h>
 
-@interface AKCBKeyValueStoreServer : NSObject <CBPeripheralManagerDelegate>
+@interface AKCBInspector : NSObject <CBPeripheralManagerDelegate>
 
 /**
  * A list of all properties for connected clients.

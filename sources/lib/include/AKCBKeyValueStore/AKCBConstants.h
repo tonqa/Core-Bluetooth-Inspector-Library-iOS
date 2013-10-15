@@ -6,14 +6,16 @@
 //  Copyright (c) 2013 Alexander Koglin. All rights reserved.
 //
 
-#ifndef AKCBKeyValueStore_AKCBKeyValueStoreConstants_h
-#define AKCBKeyValueStore_AKCBKeyValueStoreConstants_h
+#ifndef AKCBInspection_AKCBConstants_h
+#define AKCBInspection_AKCBConstants_h
 
 typedef void (^AKHandlerWithoutResult)(NSError *);
 typedef void (^AKHandlerWithResult)(id, NSError *);
 
-#define AKCBFORMAT(STRVAL) @"%s: %@", __PRETTY_FUNCTION__, STRVAL
-#define AKCBLOG(LOGVAL) NSLog(AKCBFORMAT(LOGVAL))
+#define AKCB_FORMAT(STRVAL) @"%s: %@", __PRETTY_FUNCTION__, STRVAL
+
+#define AKCB_LOG(LOGVAL) NSLog(AKCB_FORMAT(LOGVAL))
+
 
 #define AKCB_INSPECTION_KEY_KEYPATH     @"keyPath"
 #define AKCB_INSPECTION_KEY_OBJECT      @"object"

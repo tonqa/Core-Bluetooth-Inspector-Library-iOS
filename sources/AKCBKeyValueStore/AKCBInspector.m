@@ -6,11 +6,12 @@
 //  Copyright (c) 2013 Alexander Koglin. All rights reserved.
 //
 
-#import "AKCBKeyValueStoreServer.h"
+#import "AKCBInspector.h"
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
+#import "AKCBUtils.h"
+#import "AKCBConstants.h"
 
-@interface AKCBKeyValueStoreServer ()
+@interface AKCBInspector ()
 
 @property (nonatomic, strong)   NSMutableDictionary *inspectedObjects;
 @property (nonatomic, strong)   CBPeripheralManager *peripheralManager;
@@ -24,7 +25,7 @@
 @end
 
 
-@implementation AKCBKeyValueStoreServer
+@implementation AKCBInspector
 
 # pragma mark - public methods
 
@@ -100,7 +101,7 @@
         case CBPeripheralManagerStatePoweredOn: {
             
             for (NSDictionary *inspectedObject in [self.inspectedObjects allValues]) {
-                CBUUID *serviceUUID = [CBUUID UUIDWithString:[AKCBKeyValueStoreUtils getUUID]];
+                CBUUID *serviceUUID = [CBUUID UUIDWithString:[AKCBUtils getUUID]];
                 CBMutableService *service = [[CBMutableService alloc] initWithType:serviceUUID primary:YES];
                 NSMutableArray *characteristics = [NSMutableArray array];
 
@@ -170,7 +171,7 @@
     for (CBATTRequest *request in requests) {
         
         // deserialize sent object
-        id sentObject = [AKCBKeyValueStoreUtils deserialize:request.value];
+        id sentObject = [AKCBUtils deserialize:request.value];
         id valueFromSentObject = nil;
         
         // try to interpret object either as a dictionary
@@ -228,7 +229,7 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
 }
 
 - (NSData *)_emptyObject {
-    return [AKCBKeyValueStoreUtils serialize:@{}];
+    return [AKCBUtils serialize:@{}];
 }
 
 # pragma mark - Other methods
@@ -262,7 +263,7 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
                                          AKCB_SENT_KEY_SERVER: self.serverName
                                          };
     
-    return [AKCBKeyValueStoreUtils serialize:responseDictionary];
+    return [AKCBUtils serialize:responseDictionary];
 }
 
 - (NSDictionary *)_infoDictByServiceUuid:(CBUUID *)uuid {

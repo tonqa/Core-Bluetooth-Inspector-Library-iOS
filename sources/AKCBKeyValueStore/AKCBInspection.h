@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
-#import <AKCBKeyValueStore/AKCBKeyValueStoreServer.h>
-#import <AKCBKeyValueStore/AKCBKeyValueStoreClient.h>
+#import <AKCBKeyValueStore/AKCBConstants.h>
+#import <AKCBKeyValueStore/AKCBInspector.h>
+#import <AKCBKeyValueStore/AKCBObserver.h>
 
 // TODO: Needs to be renamed to AKCBStorage

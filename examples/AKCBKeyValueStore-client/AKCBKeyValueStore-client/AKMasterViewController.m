@@ -14,7 +14,7 @@
     NSMutableArray *_objects;
 }
 
-@property (nonatomic, retain) AKCBKeyValueStoreClient *client;
+@property (nonatomic, retain) AKCBObserver *client;
 
 @end
 
@@ -34,7 +34,7 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    self.client = [[AKCBKeyValueStoreClient alloc] initWithServerName:@"Test Server"];
+    self.client = [[AKCBObserver alloc] initWithServerName:@"Test Server"];
     self.client.delegate = self;
 
     __weak AKMasterViewController *this = self;
@@ -128,7 +128,7 @@
 
 # pragma mark - AKCBKeyValueStoreClientDelegate
 
-- (void)observerObservedChange:(AKCBKeyValueStoreClient *)observer
+- (void)observerObservedChange:(AKCBObserver *)observer
                        keyPath:(NSString *)keyPath
                          value:(id)value
                     identifier:(NSString *)identifier

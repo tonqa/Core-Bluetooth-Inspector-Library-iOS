@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AKCBKeyValueStoreUtils : NSObject
+@interface AKCBUtils : NSObject
 
 + (NSString *)getUUID;
 + (NSData *)serialize:(id)object;

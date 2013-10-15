@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Alexander Koglin. All rights reserved.
 //
 
-#import "AKCBKeyValueStoreUtils.h"
+#import "AKCBUtils.h"
 
-@implementation AKCBKeyValueStoreUtils
+@implementation AKCBUtils
 
 + (NSString *)getUUID {
     CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);

@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Alexander Koglin. All rights reserved.
 //
 
-#import "AKCBKeyValueStoreClient.h"
+#import "AKCBObserver.h"
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreUtils.h>
+#import "AKCBUtils.h"
 
 NSString *kBatteryServiceUUIDString = @"180F";
 NSString *kAlertServiceUUIDString = @"1802";
 NSString *kTimeServiceUUIDString = @"1805";
 
-@interface AKCBKeyValueStoreClient ()
+@interface AKCBObserver ()
 
 @property (nonatomic, copy) NSString *serverName;
 @property (nonatomic, strong) CBCentralManager *centralManager;
@@ -30,7 +30,7 @@ NSString *kTimeServiceUUIDString = @"1805";
 
 @end
 
-@implementation AKCBKeyValueStoreClient
+@implementation AKCBObserver
 
 - (id)initWithServerName:(NSString *)serverName {
     self = [super init];
@@ -73,7 +73,7 @@ NSString *kTimeServiceUUIDString = @"1805";
 
     self.writeValueBlock = completion;
     
-    NSData *serializedValue = [AKCBKeyValueStoreUtils serialize:@{
+    NSData *serializedValue = [AKCBUtils serialize:@{
                                   AKCB_INSPECTION_KEY_IDENTIFIER: identifier,
                                   AKCB_SENT_KEY_VALUE: value
                                   }];
@@ -89,7 +89,7 @@ NSString *kTimeServiceUUIDString = @"1805";
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central{
     switch (central.state) {
         case CBCentralManagerStatePoweredOn:
-            AKCBLOG(@"Did update state");
+            NSLog(@"Did update state");
             [self.centralManager scanForPeripheralsWithServices:nil options:@{
                   CBCentralManagerScanOptionAllowDuplicatesKey : [NSNumber numberWithBool:YES]
             }]; break;
@@ -109,7 +109,7 @@ NSString *kTimeServiceUUIDString = @"1805";
         NSString *serverName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
         
         if ([serverName isEqualToString:self.serverName]) {
-            AKCBLOG(@"Did found IDs and service UUIDs");
+            NSLog(@"Did found IDs and service UUIDs");
             self.peripheral = peripheral;
             if (self.findPeripheralsBlock) self.findPeripheralsBlock(peripheral, nil);
         }
@@ -168,7 +168,7 @@ NSString *kTimeServiceUUIDString = @"1805";
     
     if (error) NSLog(@"ERROR: %@", error);
 
-    NSDictionary *notifiedDict = [AKCBKeyValueStoreUtils deserialize:characteristic.value];
+    NSDictionary *notifiedDict = [AKCBUtils deserialize:characteristic.value];
     NSString *identifier = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
     id value = [notifiedDict objectForKey:AKCB_SENT_KEY_VALUE];
     
@@ -229,7 +229,7 @@ NSString *kTimeServiceUUIDString = @"1805";
     // this happens sometimes out of reason, so check..
     if (!characteristic.value) NSLog(@"ERROR: Characteristic has no value"); return;
     
-    NSDictionary *notifiedDict = [AKCBKeyValueStoreUtils deserialize:characteristic.value];
+    NSDictionary *notifiedDict = [AKCBUtils deserialize:characteristic.value];
     NSString *keyPath = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_KEYPATH];
     NSString *identifier = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_IDENTIFIER];
     id context = [notifiedDict objectForKey:AKCB_INSPECTION_KEY_CONTEXT];

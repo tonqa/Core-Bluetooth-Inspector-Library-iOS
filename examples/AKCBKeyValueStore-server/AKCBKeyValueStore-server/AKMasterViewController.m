@@ -8,7 +8,7 @@
 
 #import "AKMasterViewController.h"
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreServer.h>
+#import <AKCBKeyValueStore/AKCBInspector.h>
 
 #import "AKDetailViewController.h"
 
@@ -16,7 +16,7 @@
     NSMutableArray *_objects;
 }
 
-@property (nonatomic, retain) AKCBKeyValueStoreServer *server;
+@property (nonatomic, retain) AKCBInspector *server;
 
 @property (nonatomic, assign) BOOL observedValue;
 
@@ -42,7 +42,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     // enable inspection here
-    self.server = [[AKCBKeyValueStoreServer alloc] initWithName:@"Test Server"];
+    self.server = [[AKCBInspector alloc] initWithName:@"Test Server"];
     [self.server inspectValueForKeyPath:@"observedValue" ofObject:self identifier:@"observedValue"
                                 options:(AKCB_READ|AKCB_WRITE|AKCB_NOTIFY) context:nil];
     [self.server start];

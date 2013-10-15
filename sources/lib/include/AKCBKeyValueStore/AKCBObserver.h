@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-#import <AKCBKeyValueStore/AKCBKeyValueStoreConstants.h>
+#import <AKCBKeyValueStore/AKCBConstants.h>
 
-@class AKCBKeyValueStoreClient;
+@class AKCBObserver;
 
-@protocol AKCBKeyValueStoreClientDelegate <NSObject>
+@protocol AKCBObserverDelegate <NSObject>
 
 /**
  * This is called when an observed value was changed
  * on the server side.
  */
-- (void)observerObservedChange:(AKCBKeyValueStoreClient *)observer
+- (void)observerObservedChange:(AKCBObserver *)observer
                        keyPath:(NSString *)keyPath
                           value:(id)value
                      identifier:(NSString *)identifier
@@ -28,12 +28,12 @@
 @end
 
 
-@interface AKCBKeyValueStoreClient : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface AKCBObserver : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 /**
  * This is the delegate that gets informed for changes.
  */
-@property (nonatomic, weak) id<AKCBKeyValueStoreClientDelegate> delegate;
+@property (nonatomic, weak) id<AKCBObserverDelegate> delegate;
 
 /**
  * Initializes the client to a server with a chosen name.
